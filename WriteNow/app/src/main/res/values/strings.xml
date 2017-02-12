@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">WriteNow</string>
+
+    <string name="menu_make_contents">콘텐츠 만들기</string>
+    <string name="menu_my_contents">내가 만든 콘텐츠</string>
+    <string name="menu_users_contents">Write Now 콘텐츠</string>
+
+
+</resources>

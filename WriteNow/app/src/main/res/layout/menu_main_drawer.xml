@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240dp"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/keyColor_2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp">
+
+            <TextView android:id="@+id/textAppName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/app_name"
+                android:textSize="24sp"
+                android:textColor="@color/keyColor_4"
+                app:font="custom2"/>
+
+            <View
+                style="@style/ViewUnderLine"
+                android:layout_width="48dp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/textAppName"/>
+
+        </RelativeLayout>
+
+        <Button android:id="@+id/menuMakeContents"
+            style="@style/TextButtonStyle"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="22sp"
+            android:textColor="@color/keyColor_3"
+            app:font="custom1"
+            android:text="@string/menu_make_contents"/>
+
+        <Button android:id="@+id/menuMyContents"
+            style="@style/TextButtonStyle"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="22sp"
+            android:textColor="@color/keyColor_3"
+            app:font="custom1"
+            android:text="@string/menu_my_contents"/>
+
+        <Button android:id="@+id/menuUsersContents"
+            style="@style/TextButtonStyle"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="22sp"
+            android:textColor="@color/keyColor_3"
+            app:font="custom1"
+            android:text="@string/menu_users_contents"/>
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

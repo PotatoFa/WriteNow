@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/keyColor_1">
+
+    <RelativeLayout android:id="@+id/contentsLayout"
+        app:layout_aspectRatio="150%"
+        app:layout_widthPercent="100%" >
+
+        <ImageView android:id="@+id/myCardImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pic_5"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000"
+            android:alpha="0.2"/>
+
+        <RelativeLayout
+            android:layout_width="240dp"
+            android:layout_height="130dp"
+            android:background="#67D8D8D8"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+            <TextView android:id="@+id/contentsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="뉴욕 여행지"
+                android:textColor="#B6FBEB"
+                android:textStyle="bold"
+                android:textSize="24dp"/>
+
+            <TextView android:id="@+id/contentsDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="center"
+                android:layout_below="@id/contentsTitle"
+                android:textColor="@android:color/white"
+                android:text="브루클린 브릿지\n브루클린 브릿지 감성여행"
+                android:textSize="18dp"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/contentsLayout">
+
+        <LinearLayout android:id="@+id/myCardSNSButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_chart_v" />
+
+            <TextView
+                style="@style/TextMedium"
+                android:layout_marginLeft="8dp"
+                android:text="SNS 관리" />
+
+        </LinearLayout>
+
+
+        <LinearLayout android:id="@+id/myCardEditButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_pen_v" />
+
+            <TextView
+                style="@style/TextMedium"
+                android:layout_marginLeft="8dp"
+                android:text="수정하기" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.percent.PercentRelativeLayout>

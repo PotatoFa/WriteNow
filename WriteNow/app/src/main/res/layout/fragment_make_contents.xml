@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/keyColor_1"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout android:id="@+id/topLayout"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical|right"
+        android:layout_height="32dp">
+
+        <TextView
+            style="@style/TextMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="발행하기"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_arrow_next_v"/>
+
+    </LinearLayout>
+
+    <ImageView android:id="@+id/previewImage"
+        app:layout_widthPercent="90%"
+        app:layout_aspectRatio="100%"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/topLayout"
+        android:layout_marginTop="12dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/intro"/>
+
+    <android.support.v7.widget.RecyclerView android:id="@+id/makedContentsList"
+        android:layout_below="@id/previewImage"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:layout_height="80dp"/>
+
+</android.support.percent.PercentRelativeLayout>
