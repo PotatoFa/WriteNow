@@ -1,1 +1,3 @@
 include ':app'
+include ':viewdataupdateactivity'
+project(':viewdataupdateactivity').projectDir = new File('/Users/jaehoonjung/CustomUI/viewdataupdateactivity')

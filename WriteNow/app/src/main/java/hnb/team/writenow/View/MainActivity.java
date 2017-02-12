@@ -1,5 +1,6 @@
 package hnb.team.writenow.View;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,10 +14,14 @@ import android.widget.Button;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import hnb.team.writenow.EventBus.EventBus;
 import hnb.team.writenow.ExtendsClass.BaseActivity;
+import hnb.team.writenow.Model.Contents;
 import hnb.team.writenow.Presenter.MainPresenter;
 import hnb.team.writenow.Presenter.MainPresenterImpl;
 import hnb.team.writenow.R;
+
+import static hnb.team.writenow.View.FragmentMakeContents.REQUEST_MAKE_CONTENTS;
 
 public class MainActivity extends BaseActivity implements MainPresenter.ViewInterface{
 
@@ -90,6 +95,23 @@ public class MainActivity extends BaseActivity implements MainPresenter.ViewInte
                 .commit();
 
         drawerLayout.closeDrawers();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(resultCode != RESULT_OK)
+            return;
+
+        switch (requestCode){
+            case REQUEST_MAKE_CONTENTS:{
+                EventBus.getInstance().post(new Contents(0, R.drawable.pic_2));
+                EventBus.getInstance().post(new Contents(0, R.drawable.pic_1));
+                EventBus.getInstance().post(new Contents(0, R.drawable.pic_3));
+                break;
+            }
+        }
+
     }
 
     @Override

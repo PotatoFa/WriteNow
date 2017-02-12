@@ -27,10 +27,9 @@ public class MakeContentsPresenterImpl implements MakeContentsPresenter{
         viewInterface.setMakeContentsList(getContentsList());
     }
 
-
     private List<Contents> getContentsList(){
         List<Contents> contentsList = new ArrayList<Contents>();
-        contentsList.add(new Contents(0, R.drawable.pic_8));
+        //contentsList.add(new Contents(0, R.drawable.pic_1));
         return contentsList;
     }
 

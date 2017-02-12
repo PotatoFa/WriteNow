@@ -40,6 +40,8 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
 
+        setResult(RESULT_OK);
+
         writePresenter = new WritePresenterImpl(this);
 
         writePresenter.setViewInterface(this);
@@ -85,7 +87,6 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
             }
-
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
 

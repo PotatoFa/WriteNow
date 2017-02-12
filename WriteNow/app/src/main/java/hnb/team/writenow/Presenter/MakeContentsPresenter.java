@@ -14,6 +14,6 @@ public interface MakeContentsPresenter {
 
     interface ViewInterface{
         void setMakeContentsList(List<Contents> makeContentsList);
-        void changePreViewImage();
+        void changePreViewImage(Contents contents);
     }
 }

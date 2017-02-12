@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 7</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M5,7.66666667 C6.1045695,7.66666667 7,6.77123617 7,5.66666667 C7,4.56209717 6.1045695,3.66666667 5,3.66666667 C3.8954305,3.66666667 3,4.56209717 3,5.66666667 C3,6.77123617 3.8954305,7.66666667 5,7.66666667 Z" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="4" height="4" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="카드-에디터" transform="translate(-297.000000, -587.000000)">
+            <g id="Group-7" transform="translate(294.000000, 584.000000)">
+                <g id="Photo" transform="translate(4.000000, 4.000000)">
+                    <polygon id="Path-208" fill="#37474F" points="2 16 7.53488372 9.86111111 9.48837209 11.6666667 13.7209302 7.33333333 16 9.86111111 16 16"></polygon>
+                    <rect id="Rectangle-101" stroke="#37474F" x="0" y="0" width="16" height="16" rx="1"></rect>
+                    <use id="Oval-28" stroke="#37474F" mask="url(#mask-2)" xlink:href="#path-1"></use>
+                </g>
+                <rect id="Rectangle-17" x="0" y="0" width="24" height="24"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

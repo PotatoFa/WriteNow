@@ -37,10 +37,27 @@
         android:scaleType="centerCrop"
         android:src="@drawable/intro"/>
 
-    <android.support.v7.widget.RecyclerView android:id="@+id/makedContentsList"
-        android:layout_below="@id/previewImage"
+    <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="24dp"
-        android:layout_height="80dp"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/previewImage">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_marginTopPercent="15%"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:background="@color/keyColor_2"
+            android:layout_centerHorizontal="true">
+
+            <android.support.v7.widget.RecyclerView android:id="@+id/makedContentsList"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+    </android.support.percent.PercentRelativeLayout>
 
 </android.support.percent.PercentRelativeLayout>

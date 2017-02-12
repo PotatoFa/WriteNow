@@ -5,12 +5,12 @@
     android:id="@+id/activity_write"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/keyColor_1"
     tools:context="hnb.team.writenow.View.WriteActivity">
 
     <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <RelativeLayout android:id="@+id/cardLayout"
             app:layout_widthPercent="100%"
@@ -22,7 +22,6 @@
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 android:background="@color/color2"/>
-
 
             <TextView android:id="@+id/cardTitle"
                 android:layout_width="wrap_content"
@@ -39,7 +38,6 @@
                 android:text="CARD DESCRIPTION\ntyping to Description "
                 android:textColor="@android:color/white"
                 android:textSize="24sp"/>
-
 
         </RelativeLayout>
 

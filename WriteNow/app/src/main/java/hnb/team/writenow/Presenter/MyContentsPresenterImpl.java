@@ -34,6 +34,10 @@ public class MyContentsPresenterImpl implements MyContentsPresenter{
 
     private List<Contents> getContentsList(){
         List<Contents> contentsList = new ArrayList<Contents>();
+        contentsList.add(new Contents(0, R.drawable.pic_1));
+        contentsList.add(new Contents(0, R.drawable.pic_2));
+        contentsList.add(new Contents(0, R.drawable.pic_3));
+        contentsList.add(new Contents(0, R.drawable.pic_4));
         contentsList.add(new Contents(0, R.drawable.pic_5));
         contentsList.add(new Contents(0, R.drawable.pic_6));
         contentsList.add(new Contents(0, R.drawable.pic_7));

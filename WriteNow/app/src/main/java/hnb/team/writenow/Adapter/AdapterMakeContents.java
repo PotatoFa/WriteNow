@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 
@@ -36,17 +35,25 @@ public class AdapterMakeContents extends RecyclerView.Adapter<AdapterMakeContent
 
     List<Contents> datas = new ArrayList<Contents>();
 
-    final int addButtonId = -999;
+    public static final int ADD_BUTTON_ID = -999;
 
     private Context context;
 
     public Contents addButtonItem(){
-        return new Contents(addButtonId, R.drawable.ic_plus_oval_v);
+        return new Contents(ADD_BUTTON_ID, R.drawable.ic_plus_oval_v);
     }
 
     public void setSource(List<Contents> datas){
         this.datas = datas;
         this.datas.add(addButtonItem());
+        notifyDataSetChanged();
+    }
+
+    public void addContents(Contents data){
+        this.datas.add(0, data);
+    }
+
+    public void refreshBindingView(){
         notifyDataSetChanged();
     }
 
@@ -60,7 +67,13 @@ public class AdapterMakeContents extends RecyclerView.Adapter<AdapterMakeContent
 
         Contents contents = datas.get(position);
 
-        if(contents.getContentsId() == addButtonId){
+        holder.imageView.setOnClickListener(v -> {
+            if(adapterOnClickListener!=null)
+                adapterOnClickListener.onClickView(position, contents);
+        });
+
+
+        if(contents.getContentsId() == ADD_BUTTON_ID){
             holder.imageView.setImageResource(contents.getTitleImage());
             holder.imageView.setScaleType(ImageView.ScaleType.CENTER);
             return;
@@ -69,6 +82,8 @@ public class AdapterMakeContents extends RecyclerView.Adapter<AdapterMakeContent
         Glide.with(context).load(contents.getTitleImage()).override(320,320).into(holder.imageView);
 
     }
+
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
