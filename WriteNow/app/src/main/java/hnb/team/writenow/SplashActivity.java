@@ -36,7 +36,7 @@ public class SplashActivity extends BaseActivity {
         permissionListener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), WriteActivity.class));
             }
             @Override
             public void onPermissionDenied(ArrayList<String> arrayList) {

@@ -1,5 +1,7 @@
 package hnb.team.writenow.View;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.PorterDuff;
@@ -17,6 +19,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -111,23 +114,15 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-
-                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-                float coverAlphaValue = slideOffset * alphaMax;
-
-                coverView.setAlpha(coverAlphaValue);
 
             }
         });
     }
 
-    float alphaMax = 0.3f;
 
     int imageResource;
 
@@ -146,22 +141,25 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
 
     @OnClick(R.id.changeImageButton)
     public void changeImageButton(){
-        imageRecyclerView.setVisibility(View.VISIBLE);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         writePresenter.excuteImageList();
     }
 
     @Override
     public void setImageList(List<PixaBayImage> pixaBayImages) {
         squareImageAdapter.setSource(pixaBayImages);
+
+        textSettingLayout.setVisibility(View.INVISIBLE);
+
+        imageRecyclerView.setVisibility(View.VISIBLE);
+
+        bottomSheetAnimate(ValueHelper.dpToPx(280));
     }
 
     @Override
     public void setImage(int imageResource) {
         this.imageResource = imageResource;
         Glide.with(this).load(this.imageResource).override(800,800).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(previewImage);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        imageRecyclerView.setVisibility(View.INVISIBLE);
+        bottomSheetAnimate(0);
     }
 
 
@@ -316,8 +314,9 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
         }
 
         textSettingLayout.setVisibility(View.VISIBLE);
+        imageRecyclerView.setVisibility(View.INVISIBLE);
 
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        bottomSheetAnimate(ValueHelper.dpToPx(200));
 
     }
 
@@ -332,12 +331,57 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
 
     @Override
     public void onBackPressed() {
-        if(bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED){
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            textSettingLayout.setVisibility(View.INVISIBLE);
-            imageRecyclerView.setVisibility(View.INVISIBLE);
+
+        if(bottomSheetBehavior.getPeekHeight() != 0) {
+            bottomSheetAnimate(0);
+            isBottomInvisible = true;
             return;
         }
+
         super.onBackPressed();
+    }
+
+    boolean isBottomInvisible = true;
+
+/*
+
+    float alphaMax = 0.3f;
+
+    float coverAlphaValue = slideOffset * alphaMax;
+
+    coverView.setAlpha(coverAlphaValue);
+
+*/
+
+    public void bottomSheetAnimate(int targetHeight){
+        if(targetHeight == 0)
+            isBottomInvisible = true;
+        else
+            isBottomInvisible = false;
+
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(bottomSheetBehavior.getPeekHeight(), targetHeight);
+        valueAnimator.setDuration(500);
+        valueAnimator.setInterpolator(new OvershootInterpolator(0.3f));
+        valueAnimator.addUpdateListener(animation -> {
+            int bottomHeight = (int) animation.getAnimatedValue();
+            Log.i("BOTTOM HEIGHT", ": " + bottomHeight);
+            bottomSheetBehavior.setPeekHeight(bottomHeight);
+        });
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                /*if(isBottomInvisible){
+                    textSettingLayout.setVisibility(View.INVISIBLE);
+                    imageRecyclerView.setVisibility(View.INVISIBLE);
+                }*/
+            }
+        });
+        valueAnimator.start();
     }
 }
