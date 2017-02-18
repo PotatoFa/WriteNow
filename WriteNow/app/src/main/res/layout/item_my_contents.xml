@@ -35,7 +35,10 @@
                 android:text="뉴욕 여행지"
                 android:textColor="#B6FBEB"
                 android:textStyle="bold"
-                android:textSize="24dp"/>
+                android:textSize="24dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="22dp" />
 
             <TextView android:id="@+id/contentsDesc"
                 android:layout_width="match_parent"
@@ -46,6 +49,7 @@
                 android:textColor="@android:color/white"
                 android:text="브루클린 브릿지\n브루클린 브릿지 감성여행"
                 android:textSize="18dp"/>
+
 
         </RelativeLayout>
 

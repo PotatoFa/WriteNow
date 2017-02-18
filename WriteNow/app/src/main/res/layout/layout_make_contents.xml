@@ -8,7 +8,7 @@
     <LinearLayout android:id="@+id/topLayout"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:layout_height="32dp">
+        android:layout_height="40dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -16,10 +16,11 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp">
 
-            <TextView
+            <TextView android:id="@+id/changeTitleSetting"
                 style="@style/TextSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="6dp"
                 android:layout_centerVertical="true"
                 android:textColor="@color/keyColor_3"
                 android:text="@string/str_step_title"/>
@@ -28,10 +29,10 @@
                 style="@style/ViewUnderLine"
                 android:layout_width="24dp"
                 android:background="@color/keyColor_3"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="4dp"/>
 
         </RelativeLayout>
-
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -39,10 +40,11 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp">
 
-            <TextView
+            <TextView android:id="@+id/changeDescSetting"
                 style="@style/TextSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="6dp"
                 android:layout_centerVertical="true"
                 android:textColor="@color/keyColor_3"
                 android:text="@string/str_step_desc"/>
@@ -51,7 +53,8 @@
                 style="@style/ViewUnderLine"
                 android:layout_width="24dp"
                 android:background="@color/keyColor_3"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="4dp"/>
 
         </RelativeLayout>
 
@@ -61,39 +64,79 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp">
 
-            <TextView
+            <TextView android:id="@+id/changeColorSetting"
                 style="@style/TextSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="6dp"
                 android:layout_centerVertical="true"
                 android:textColor="@color/keyColor_3"
-                android:text="@string/str_step_theme"/>
+                android:text="@string/str_change_color"/>
 
             <View
                 style="@style/ViewUnderLine"
                 android:layout_width="24dp"
                 android:background="@color/keyColor_3"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="4dp"/>
 
         </RelativeLayout>
 
-
-
     </LinearLayout>
 
-    <ImageView android:id="@+id/previewImage"
+    <android.support.percent.PercentRelativeLayout android:id="@+id/customContentsLayout"
         app:layout_widthPercent="100%"
         app:layout_aspectRatio="100%"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/topLayout"
         android:layout_marginTop="12dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/intro"/>
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/topLayout">
+
+        <ImageView android:id="@+id/previewImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pic_6"/>
+
+        <RelativeLayout android:id="@+id/textBox"
+            app:layout_widthPercent="80%"
+            app:layout_aspectRatio="150%"
+            android:layout_centerInParent="true"
+            android:padding="30dp"
+            android:background="#80000000">
+
+            <EditText android:id="@+id/editTitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:maxLines="2"
+                android:background="@android:color/transparent"
+                android:textColor="#B6FBEB"
+                android:textSize="26dp"
+                android:text="제목을 입력해주세요"/>
+
+            <EditText android:id="@+id/editDescText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/editTitleText"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:background="@android:color/transparent"
+                android:maxLines="2"
+                android:textColor="#EAEAE8"
+                android:textSize="18dp"
+                android:text="내용을 입력해주세요 \n입력해주세요"/>
+
+        </RelativeLayout>
+
+    </android.support.percent.PercentRelativeLayout>
 
     <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/previewImage">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -103,15 +146,15 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <ImageButton
-                android:layout_height="24dp"
-                android:layout_width="24dp"
+            <ImageButton android:id="@+id/changeTempleteButton"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_templete_v"/>
 
             <TextView
                 style="@style/TextSmall"
-                android:layout_marginTop="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_change_templete"/>
@@ -128,15 +171,15 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <ImageButton
-                android:layout_height="24dp"
-                android:layout_width="24dp"
+            <ImageButton android:id="@+id/changeImageButton"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_picture_v"/>
 
             <TextView
                 style="@style/TextSmall"
-                android:layout_marginTop="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_change_image"/>
@@ -144,5 +187,6 @@
         </LinearLayout>
 
     </android.support.percent.PercentRelativeLayout>
+
 
 </android.support.percent.PercentRelativeLayout>

@@ -57,9 +57,11 @@ public class WritePresenterImpl implements WritePresenter{
         imageList.add(R.drawable.pic_6);
         imageList.add(R.drawable.pic_7);
         imageList.add(R.drawable.pic_8);
-        imageList.add(R.drawable.pic_1);
-        imageList.add(R.drawable.pic_2);
-        imageList.add(R.drawable.pic_3);
+        imageList.add(R.drawable.pic_4);
+        imageList.add(R.drawable.pic_5);
+        imageList.add(R.drawable.pic_6);
+        imageList.add(R.drawable.pic_7);
+        imageList.add(R.drawable.pic_8);
 
         for(int i = 0; i < 30; i++){
             pixaBayImages.add(new PixaBayImage(0, imageList.get(i % imageList.size())));

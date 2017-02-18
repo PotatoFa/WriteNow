@@ -37,7 +37,7 @@
 
 
     <style name="TextSmall" parent="@android:style/TextAppearance.Widget.TextView">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="color">@color/keyColor_4</item>
@@ -65,6 +65,7 @@
         <item name="android:layout_height">2dp</item>
         <item name="android:layout_centerHorizontal">true</item>
     </style>
+
 
 
 </resources>

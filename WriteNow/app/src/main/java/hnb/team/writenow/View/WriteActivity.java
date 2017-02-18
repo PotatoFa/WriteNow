@@ -7,40 +7,57 @@ import android.graphics.PorterDuffColorFilter;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.os.Bundle;
+import android.support.percent.PercentLayoutHelper;
+import android.support.percent.PercentRelativeLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
+import hnb.team.writenow.Adapter.AdapterAlignItems;
+import hnb.team.writenow.Adapter.AdapterFontItems;
+import hnb.team.writenow.Adapter.AlignChangeListener;
+import hnb.team.writenow.Adapter.FontChangeListener;
 import hnb.team.writenow.Adapter.SquareImageAdapter;
+import hnb.team.writenow.EventBus.EventBus;
 import hnb.team.writenow.ExtendsClass.BaseActivity;
+import hnb.team.writenow.Model.AlignItem;
+import hnb.team.writenow.Model.Contents;
+import hnb.team.writenow.Model.FontItem;
 import hnb.team.writenow.Model.PixaBayImage;
 import hnb.team.writenow.Presenter.WritePresenter;
 import hnb.team.writenow.Presenter.WritePresenterImpl;
 import hnb.team.writenow.R;
+import hnb.team.writenow.Util.ValueHelper;
 
-public class WriteActivity extends BaseActivity implements WritePresenter.ViewInterface{
+public class WriteActivity extends BaseActivity implements WritePresenter.ViewInterface, AlignChangeListener, FontChangeListener{
 
     private WritePresenterImpl writePresenter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
-
-        setResult(RESULT_OK);
 
         writePresenter = new WritePresenterImpl(this);
 
@@ -52,27 +69,39 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
 
         initImageList();
 
+        initTextSettingLayout();
+
     }
 
     @BindColor(R.color.filterColor_white) int currentFilterColor;
 
     int filterAnimDuration = 300;
 
-    @Bind(R.id.cardLayout) RelativeLayout cardLayout;
+    @Bind(R.id.previewImage) ImageView previewImage;
 
-    @Bind(R.id.cardImage) ImageView cardImage;
+    @Bind(R.id.coverView) View coverView;
 
     @Bind(R.id.imageRecyclerView) RecyclerView imageRecyclerView;
 
     @Bind(R.id.bottomSheetLayout) RelativeLayout bottomSheetLayout;
+
+    @Bind(R.id.bottomOverMenuLayout) RelativeLayout bottomOverMenuLayout;
+
+    @Bind(R.id.changeTempleteLayout) LinearLayout changeTempleteLayout;
+    @Bind(R.id.changeSettingLayout) LinearLayout changeSettingLayout;
+    @Bind(R.id.changeTextLayout) LinearLayout changeTextLayout;
+
+    @Bind(R.id.textBox) RelativeLayout textBox;
+    @Bind(R.id.editTitleText) EditText editTitleText;
+    @Bind(R.id.editDescText) EditText editDescText;
 
     BottomSheetBehavior bottomSheetBehavior;
 
     private SquareImageAdapter squareImageAdapter;
 
     private void initCardLayout(){
-        cardLayout.setDrawingCacheEnabled(true);
-        cardLayout.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        //cardLayout.setDrawingCacheEnabled(true);
+        //cardLayout.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
     }
 
     private void initBottomSheet(){
@@ -90,9 +119,17 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
 
+                float coverAlphaValue = slideOffset * alphaMax;
+
+                coverView.setAlpha(coverAlphaValue);
+
             }
         });
     }
+
+    float alphaMax = 0.3f;
+
+    int imageResource;
 
     private void initImageList(){
 
@@ -109,31 +146,9 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
 
     @OnClick(R.id.changeImageButton)
     public void changeImageButton(){
-        writePresenter.excuteImageChange();
-    }
-
-    @OnClick(R.id.showBottomSheetButton)
-    public void showBottomSheetButton(){
+        imageRecyclerView.setVisibility(View.VISIBLE);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         writePresenter.excuteImageList();
-    }
-
-    @OnClick(R.id.changeFilterColorButton)
-    public void changeFilterColorButton(){
-        writePresenter.changeFilterColor();
-    }
-
-    @OnClick(R.id.saveToImageButton)
-    public void saveToImageButton(){
-        showProgressDialog("이미지 저장 중 입니다", true);
-        cardLayout.buildDrawingCache();
-        writePresenter.excuteSaveCard(cardLayout.getDrawingCache());
-    }
-
-    @Override
-    public void completeSaveCard(String message) {
-        //hideProgressDialog();
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -143,9 +158,29 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
 
     @Override
     public void setImage(int imageResource) {
-        Glide.with(this).load(imageResource).override(800,800).centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL).into(cardImage);
+        this.imageResource = imageResource;
+        Glide.with(this).load(this.imageResource).override(800,800).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(previewImage);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        imageRecyclerView.setVisibility(View.INVISIBLE);
+    }
+
+
+    @OnClick(R.id.changeTempleteButton)
+    public void changeTempleteButton(){
+
+    }
+
+    @OnClick(R.id.completeButton)
+    public void completeButton(){
+        EventBus.getInstance().post(new Contents(0, imageResource));
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    @Override
+    public void completeSaveCard(String message) {
+        //hideProgressDialog();
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -154,11 +189,155 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
         valueAnimator.setDuration(filterAnimDuration);
         valueAnimator.addUpdateListener(animation -> {
             int animationValue = (int) animation.getAnimatedValue();
-            cardImage.setColorFilter(new PorterDuffColorFilter(animationValue, PorterDuff.Mode.MULTIPLY));
+            previewImage.setColorFilter(new PorterDuffColorFilter(animationValue, PorterDuff.Mode.MULTIPLY));
             currentFilterColor = animationValue;
         });
         valueAnimator.start();
     }
 
+    EditText currentEditText;
 
+    @OnFocusChange({R.id.editTitleText, R.id.editDescText})
+    public void onFoucsChanged(View view){
+        if(view instanceof EditText)
+            currentEditText = (EditText) view;
+    }
+
+    @Bind(R.id.textSettingLayout) LinearLayout textSettingLayout;
+
+    @OnClick({R.id.textSmaller2, R.id.textSmaller1, R.id.textLarger2, R.id.textLarger1})
+    public void onTextSizeChange(View view){
+
+        if(currentEditText == null)
+            return;
+
+        float currentTextSize = (int) currentEditText.getTextSize();
+
+        switch (view.getId()){
+
+            case R.id.textSmaller1:
+                currentTextSize -= ValueHelper.dpToPx(1);
+                break;
+            case R.id.textSmaller2:
+                currentTextSize -= ValueHelper.dpToPx(2);
+                break;
+            case R.id.textLarger1:
+                currentTextSize += ValueHelper.dpToPx(1);
+                break;
+            case R.id.textLarger2:
+                currentTextSize += ValueHelper.dpToPx(2);
+                break;
+        }
+
+        currentEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, currentTextSize);
+    }
+
+    @Bind(R.id.fontList) RecyclerView fontList;
+    @Bind(R.id.alignList) RecyclerView alignList;
+
+    AdapterFontItems adapterFontItems;
+    AdapterAlignItems adapterAlignItems;
+
+    private void initTextSettingLayout(){
+
+        adapterFontItems = new AdapterFontItems(getApplicationContext(), this);
+        adapterAlignItems = new AdapterAlignItems(getApplicationContext(), this);
+
+        adapterAlignItems.setSource(AlignItem.getAlignItems());
+        adapterFontItems.setSource(FontItem.getFontItems(getApplicationContext()));
+
+        LinearLayoutManager fontLinearLayoutManger = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        GridLayoutManager alignGridLayoutManager = new GridLayoutManager(getApplicationContext(), 3, LinearLayoutManager.VERTICAL, true);
+
+        fontList.setLayoutManager(fontLinearLayoutManger);
+        alignList.setLayoutManager(alignGridLayoutManager);
+
+        fontList.setAdapter(adapterFontItems);
+        alignList.setAdapter(adapterAlignItems);
+
+    }
+
+    @Override
+    public void onChangeAlign(AlignItem alignItem) {
+
+
+        switch (alignItem.getAlign()){
+
+            case Gravity.TOP:
+                changeTextBoxPosition(RelativeLayout.ALIGN_PARENT_TOP, 1f);
+                break;
+
+            case Gravity.CENTER_VERTICAL:
+                changeTextBoxPosition(RelativeLayout.CENTER_IN_PARENT, 0.8f);
+                break;
+
+            case Gravity.BOTTOM:
+                changeTextBoxPosition(RelativeLayout.ALIGN_PARENT_BOTTOM, 1f);
+                break;
+
+            default:
+                if(currentEditText == null)
+                    return;
+                currentEditText.setGravity(alignItem.getAlign());
+                break;
+
+        }
+
+    }
+
+    private void changeTextBoxPosition(int rule, float widthPercent){
+
+        PercentRelativeLayout.LayoutParams params = (PercentRelativeLayout.LayoutParams) textBox.getLayoutParams();
+
+        PercentLayoutHelper.PercentLayoutInfo info = params.getPercentLayoutInfo();
+
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, 0);
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+
+        params.addRule(rule, RelativeLayout.TRUE);
+        info.widthPercent = widthPercent;
+
+        textBox.requestLayout();
+
+    }
+
+    @OnClick({R.id.changeTitleSetting, R.id.changeDescSetting, R.id.changeColorSetting})
+    public void changeSetting(View view){
+        switch (view.getId()){
+            case R.id.changeColorSetting:
+                return;
+            case R.id.changeTitleSetting:
+                currentEditText = editTitleText;
+                break;
+            case R.id.changeDescSetting:
+                currentEditText = editDescText;
+                break;
+        }
+
+        textSettingLayout.setVisibility(View.VISIBLE);
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+    }
+
+
+    @Override
+    public void onChangeFont(FontItem fontItem) {
+        if(currentEditText == null)
+            return;
+
+        currentEditText.setTypeface(fontItem.getFont());
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED){
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            textSettingLayout.setVisibility(View.INVISIBLE);
+            imageRecyclerView.setVisibility(View.INVISIBLE);
+            return;
+        }
+        super.onBackPressed();
+    }
 }

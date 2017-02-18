@@ -17,7 +17,9 @@ public interface WritePresenter {
     void initTestData();
 
     void excuteImageList();
+
     void excuteImageChange();
+
     void excuteImageChange(PixaBayImage pixaBayImage);
 
     void changeFilterColor();
