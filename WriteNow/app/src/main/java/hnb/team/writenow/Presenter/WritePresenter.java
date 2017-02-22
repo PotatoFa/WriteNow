@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import java.util.List;
 
+import hnb.team.writenow.Interface.FileSaveListener;
 import hnb.team.writenow.Model.PixaBayImage;
 
 /**
@@ -24,7 +25,7 @@ public interface WritePresenter {
 
     void changeFilterColor();
 
-    void excuteSaveCard(Bitmap saveBitmap);
+    void excuteSaveCard(Bitmap saveBitmap, FileSaveListener fileSaveListener);
 
     interface ViewInterface{
 

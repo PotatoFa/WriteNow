@@ -12,16 +12,21 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import hnb.team.writenow.Interface.FileSaveListener;
+
 public class AsyncSaveToImage extends AsyncTask<Bitmap, Integer, String>{
 
     private Context context;
 
-    private AsyncSaveToImage(Context context){
+    private FileSaveListener fileSaveListener;
+
+    private AsyncSaveToImage(Context context, FileSaveListener fileSaveListener){
         this.context = context;
+        this.fileSaveListener = fileSaveListener;
     }
 
-    public static void startSaveToImage(Bitmap bitmap, Context context){
-        AsyncSaveToImage asyncSaveToImage = new AsyncSaveToImage(context);
+    public static void startSaveToImage(Bitmap bitmap, Context context, FileSaveListener fileSaveListener){
+        AsyncSaveToImage asyncSaveToImage = new AsyncSaveToImage(context, fileSaveListener);
         asyncSaveToImage.execute(bitmap);
     }
 
@@ -46,8 +51,12 @@ public class AsyncSaveToImage extends AsyncTask<Bitmap, Integer, String>{
 
     @Override
     protected void onPostExecute(String s) {
-        Log.i("IMAGE SAVE ASYNC", "ASYNC POST");
+//        fileSaveListener.onCompleteFileSave(s);
         super.onPostExecute(s);
+        /*
+        Log.i("POST", s);
+        fileSaveListener.onCompleteFileSave(s);
+        */
     }
 
     @Override
@@ -87,9 +96,9 @@ public class AsyncSaveToImage extends AsyncTask<Bitmap, Integer, String>{
         } finally {
             try {
                 if (out != null) out.close();
-                onPostExecute("COMPLETE SAVE");
+                onPostExecute(savePath);
             } catch (IOException ioe) {
-                onPostExecute("COMPLETE FAIL");
+                onCancelled("COMPLETE FAIL");
             }
         }
         saveBitmap.recycle();

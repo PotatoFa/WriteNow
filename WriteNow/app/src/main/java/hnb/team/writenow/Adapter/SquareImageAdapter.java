@@ -14,7 +14,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import hnb.team.writenow.Interface.AdapterOnClickListener;
 import hnb.team.writenow.Model.PixaBayImage;
 import hnb.team.writenow.R;
 

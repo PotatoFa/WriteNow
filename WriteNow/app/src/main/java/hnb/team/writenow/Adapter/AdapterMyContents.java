@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import hnb.team.writenow.Interface.AdapterOnClickListener;
 import hnb.team.writenow.Model.Contents;
 import hnb.team.writenow.R;
 

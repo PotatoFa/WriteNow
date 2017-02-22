@@ -1,6 +1,7 @@
 package hnb.team.writenow.Adapter;
 
 import butterknife.Bind;
+import hnb.team.writenow.Interface.AlignChangeListener;
 import hnb.team.writenow.Model.AlignItem;
 
 import android.content.Context;
@@ -11,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;

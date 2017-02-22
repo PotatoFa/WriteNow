@@ -1,12 +1,10 @@
 package hnb.team.writenow.View;
 
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +18,13 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import hnb.team.writenow.Adapter.AdapterMakeContents;
-import hnb.team.writenow.Adapter.AdapterMyContents;
-import hnb.team.writenow.Adapter.AdapterOnClickListener;
-import hnb.team.writenow.Adapter.SquareImageAdapter;
+import hnb.team.writenow.Interface.AdapterOnClickListener;
 import hnb.team.writenow.EventBus.EventBus;
 import hnb.team.writenow.ExtendsClass.BaseFragment;
 import hnb.team.writenow.ExtendsClass.SpacingItemDecoration;
 import hnb.team.writenow.Model.Contents;
 import hnb.team.writenow.Presenter.MakeContentsPresenter;
 import hnb.team.writenow.Presenter.MakeContentsPresenterImpl;
-import hnb.team.writenow.Presenter.MyContentsPresenterImpl;
 import hnb.team.writenow.R;
 import hnb.team.writenow.Util.ValueHelper;
 

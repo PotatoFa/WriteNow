@@ -40,6 +40,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.ViewInte
 
         initComponent();
 
+        mainPresenter.onClickDrawerMenu(0);
+
     }
 
     private void initComponent(){
@@ -104,10 +106,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.ViewInte
             return;
 
         switch (requestCode){
-            case REQUEST_MAKE_CONTENTS:{/*
-                EventBus.getInstance().post(new Contents(0, R.drawable.pic_2));
-                EventBus.getInstance().post(new Contents(0, R.drawable.pic_1));
-                EventBus.getInstance().post(new Contents(0, R.drawable.pic_3));*/
+            case REQUEST_MAKE_CONTENTS:{
+
                 break;
             }
         }

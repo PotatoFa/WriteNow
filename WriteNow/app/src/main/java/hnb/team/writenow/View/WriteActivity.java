@@ -1,11 +1,11 @@
 package hnb.team.writenow.View;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.os.Bundle;
@@ -14,12 +14,9 @@ import android.support.percent.PercentRelativeLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,10 +36,11 @@ import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import hnb.team.writenow.Adapter.AdapterAlignItems;
 import hnb.team.writenow.Adapter.AdapterFontItems;
-import hnb.team.writenow.Adapter.AlignChangeListener;
-import hnb.team.writenow.Adapter.FontChangeListener;
-import hnb.team.writenow.Adapter.SquareImageAdapter;
 import hnb.team.writenow.EventBus.EventBus;
+import hnb.team.writenow.Interface.AlignChangeListener;
+import hnb.team.writenow.Interface.FileSaveListener;
+import hnb.team.writenow.Interface.FontChangeListener;
+import hnb.team.writenow.Adapter.SquareImageAdapter;
 import hnb.team.writenow.ExtendsClass.BaseActivity;
 import hnb.team.writenow.Model.AlignItem;
 import hnb.team.writenow.Model.Contents;
@@ -53,7 +51,7 @@ import hnb.team.writenow.Presenter.WritePresenterImpl;
 import hnb.team.writenow.R;
 import hnb.team.writenow.Util.ValueHelper;
 
-public class WriteActivity extends BaseActivity implements WritePresenter.ViewInterface, AlignChangeListener, FontChangeListener{
+public class WriteActivity extends BaseActivity implements WritePresenter.ViewInterface, AlignChangeListener, FontChangeListener, FileSaveListener{
 
     private WritePresenterImpl writePresenter;
 
@@ -95,6 +93,9 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
     @Bind(R.id.changeTextLayout) LinearLayout changeTextLayout;
 
     @Bind(R.id.textBox) RelativeLayout textBox;
+
+
+    @Bind(R.id.customContentsLayout) PercentRelativeLayout customContentsLayout;
     @Bind(R.id.editTitleText) EditText editTitleText;
     @Bind(R.id.editDescText) EditText editDescText;
 
@@ -103,8 +104,11 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
     private SquareImageAdapter squareImageAdapter;
 
     private void initCardLayout(){
-        //cardLayout.setDrawingCacheEnabled(true);
-        //cardLayout.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        colorChangerTextViews.add(changeTitleSetting);
+        colorChangerTextViews.add(changeDescSetting);
+        colorChangerTextViews.add(changeColorSetting);
+        customContentsLayout.setDrawingCacheEnabled(true);
+        customContentsLayout.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
     }
 
     private void initBottomSheet(){
@@ -114,7 +118,8 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                if(newState == BottomSheetBehavior.STATE_DRAGGING)
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
@@ -122,7 +127,6 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
             }
         });
     }
-
 
     int imageResource;
 
@@ -152,16 +156,17 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
 
         imageRecyclerView.setVisibility(View.VISIBLE);
 
-        bottomSheetAnimate(ValueHelper.dpToPx(280));
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
     }
 
     @Override
     public void setImage(int imageResource) {
         this.imageResource = imageResource;
         Glide.with(this).load(this.imageResource).override(800,800).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(previewImage);
-        bottomSheetAnimate(0);
-    }
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
+    }
 
     @OnClick(R.id.changeTempleteButton)
     public void changeTempleteButton(){
@@ -170,14 +175,37 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
 
     @OnClick(R.id.completeButton)
     public void completeButton(){
-        EventBus.getInstance().post(new Contents(0, imageResource));
-        setResult(RESULT_OK);
-        finish();
+
+        customContentsLayout.buildDrawingCache();
+
+        writePresenter.excuteSaveCard(customContentsLayout.getDrawingCache(), this);
+
+    }
+
+
+    @Override
+    public void onCompleteFileSave(String filePath) {
+
+        runOnUiThread(
+                () -> {
+
+                    Contents contents = new Contents(0, imageResource);
+                    contents.setFilePath(filePath);
+                    EventBus.getInstance().post(contents);
+
+                    setResult(RESULT_OK);
+                    finish();
+                }
+        );
+
     }
 
     @Override
     public void completeSaveCard(String message) {
         //hideProgressDialog();
+
+
+
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
@@ -195,10 +223,41 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
 
     EditText currentEditText;
 
+    @Bind(R.id.changeTitleSetting) TextView changeTitleSetting;
+    @Bind(R.id.changeDescSetting) TextView changeDescSetting;
+    @Bind(R.id.changeColorSetting) TextView changeColorSetting;
+
+    List<TextView> colorChangerTextViews = new ArrayList<TextView>();
+
+    @OnClick({R.id.changeTitleSetting, R.id.changeDescSetting, R.id.changeColorSetting})
+    public void changeSetting(View view){
+        switch (view.getId()){
+            case R.id.changeColorSetting:
+                changeColorAnimate(changeColorSetting);
+                return;
+            case R.id.changeTitleSetting:
+                changeColorAnimate(changeTitleSetting);
+                currentEditText = editTitleText;
+                break;
+            case R.id.changeDescSetting:
+                changeColorAnimate(changeDescSetting);
+                currentEditText = editDescText;
+                break;
+        }
+
+        textSettingLayout.setVisibility(View.VISIBLE);
+        imageRecyclerView.setVisibility(View.INVISIBLE);
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+    }
+
     @OnFocusChange({R.id.editTitleText, R.id.editDescText})
     public void onFoucsChanged(View view){
-        if(view instanceof EditText)
+        if(view instanceof EditText){
             currentEditText = (EditText) view;
+            changeSetting(currentEditText.getId() == R.id.editTitleText ? changeTitleSetting : changeDescSetting);
+        }
     }
 
     @Bind(R.id.textSettingLayout) LinearLayout textSettingLayout;
@@ -283,6 +342,14 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
 
     }
 
+    @Override
+    public void onChangeFont(FontItem fontItem) {
+        if(currentEditText == null)
+            return;
+
+        currentEditText.setTypeface(fontItem.getFont());
+    }
+
     private void changeTextBoxPosition(int rule, float widthPercent){
 
         PercentRelativeLayout.LayoutParams params = (PercentRelativeLayout.LayoutParams) textBox.getLayoutParams();
@@ -300,88 +367,52 @@ public class WriteActivity extends BaseActivity implements WritePresenter.ViewIn
 
     }
 
-    @OnClick({R.id.changeTitleSetting, R.id.changeDescSetting, R.id.changeColorSetting})
-    public void changeSetting(View view){
-        switch (view.getId()){
-            case R.id.changeColorSetting:
-                return;
-            case R.id.changeTitleSetting:
-                currentEditText = editTitleText;
-                break;
-            case R.id.changeDescSetting:
-                currentEditText = editDescText;
-                break;
-        }
-
-        textSettingLayout.setVisibility(View.VISIBLE);
-        imageRecyclerView.setVisibility(View.INVISIBLE);
-
-        bottomSheetAnimate(ValueHelper.dpToPx(200));
-
-    }
-
-
-    @Override
-    public void onChangeFont(FontItem fontItem) {
-        if(currentEditText == null)
-            return;
-
-        currentEditText.setTypeface(fontItem.getFont());
-    }
-
     @Override
     public void onBackPressed() {
 
-        if(bottomSheetBehavior.getPeekHeight() != 0) {
-            bottomSheetAnimate(0);
-            isBottomInvisible = true;
+        if(bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED){
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             return;
         }
 
         super.onBackPressed();
     }
 
-    boolean isBottomInvisible = true;
+    @BindColor(R.color.keyColor_4) int highLightColor;
 
-/*
+    @BindColor(R.color.keyColor_2) int normalColor;
 
-    float alphaMax = 0.3f;
+    final int colorChangeDuration = 200;
 
-    float coverAlphaValue = slideOffset * alphaMax;
+    private void changeColorAnimate(TextView textView){
 
-    coverView.setAlpha(coverAlphaValue);
+        for(TextView changeTextView : colorChangerTextViews){
+            if(changeTextView != textView){
+                int currentColor = changeTextView.getCurrentTextColor();
+                if(currentColor != normalColor){
+                    ValueAnimator valueAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), currentColor, normalColor);
+                    valueAnimator.setDuration(colorChangeDuration);
+                    valueAnimator.addUpdateListener(animation -> {
+                        changeTextView.setTextColor((int) animation.getAnimatedValue());
+                    });
+                    valueAnimator.start();
+                }
+            }
+        }
 
-*/
+        int currentColor = textView.getCurrentTextColor();
 
-    public void bottomSheetAnimate(int targetHeight){
-        if(targetHeight == 0)
-            isBottomInvisible = true;
-        else
-            isBottomInvisible = false;
+        if(currentColor == highLightColor)
+            return;
 
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(bottomSheetBehavior.getPeekHeight(), targetHeight);
-        valueAnimator.setDuration(500);
-        valueAnimator.setInterpolator(new OvershootInterpolator(0.3f));
+        ValueAnimator valueAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), currentColor, highLightColor);
+        valueAnimator.setDuration(colorChangeDuration);
         valueAnimator.addUpdateListener(animation -> {
-            int bottomHeight = (int) animation.getAnimatedValue();
-            Log.i("BOTTOM HEIGHT", ": " + bottomHeight);
-            bottomSheetBehavior.setPeekHeight(bottomHeight);
-        });
-        valueAnimator.addListener(new AnimatorListenerAdapter() {
-
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                /*if(isBottomInvisible){
-                    textSettingLayout.setVisibility(View.INVISIBLE);
-                    imageRecyclerView.setVisibility(View.INVISIBLE);
-                }*/
-            }
+            textView.setTextColor((int) animation.getAnimatedValue());
         });
         valueAnimator.start();
+
     }
+
+
 }

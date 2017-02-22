@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hnb.team.writenow.ExtendsClass.BaseActivity;
+import hnb.team.writenow.Interface.FileSaveListener;
 import hnb.team.writenow.Model.PixaBayImage;
 import hnb.team.writenow.R;
 import hnb.team.writenow.Util.AsyncSaveToImage;
@@ -95,12 +96,10 @@ public class WritePresenterImpl implements WritePresenter{
     }
 
     @Override
-    public void excuteSaveCard(Bitmap saveBitmap) {
+    public void excuteSaveCard(Bitmap saveBitmap, FileSaveListener fileSaveListener) {
 
-        AsyncSaveToImage.startSaveToImage(saveBitmap, baseActivity);
+        AsyncSaveToImage.startSaveToImage(saveBitmap, baseActivity, fileSaveListener);
 
     }
-
-
 
 }

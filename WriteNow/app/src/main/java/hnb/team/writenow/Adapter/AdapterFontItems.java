@@ -12,6 +12,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import hnb.team.writenow.Interface.FontChangeListener;
 import hnb.team.writenow.Model.FontItem;
 import hnb.team.writenow.R;
 
