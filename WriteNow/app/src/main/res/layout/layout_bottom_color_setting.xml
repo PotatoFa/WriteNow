@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@color/keyColor_1"
+    android:id="@+id/bottomColorSettingLayout"
+    android:visibility="gone"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            style="@style/TextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/str_color_box"
+            android:layout_margin="12dp"
+            android:textColor="@color/keyColor_3" />
+
+        <SeekBar android:id="@+id/seekBarBoxColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            style="@style/TextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/str_color_title"
+            android:layout_margin="12dp"
+            android:textColor="@color/keyColor_3" />
+
+
+        <android.support.v7.widget.RecyclerView android:id="@+id/listTitleColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            style="@style/TextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/str_color_desc"
+            android:layout_margin="12dp"
+            android:textColor="@color/keyColor_3" />
+
+        <android.support.v7.widget.RecyclerView android:id="@+id/listDescColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            style="@style/TextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/str_color_image_filter"
+            android:layout_margin="12dp"
+            android:textColor="@color/keyColor_3" />
+
+        <android.support.v7.widget.RecyclerView android:id="@+id/listImageFilterColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</LinearLayout>

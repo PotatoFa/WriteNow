@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:id="@+id/bottomTextSettingLayout"
+    android:visibility="gone"
+    android:background="@color/keyColor_1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextSmall"
+            android:layout_height="match_parent"
+            android:text="제목"
+            android:textColor="@color/keyColor_3"
+            android:padding="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/TextSmall"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:text="폰트"
+                    android:textColor="@color/keyColor_3"/>
+
+                <android.support.v7.widget.RecyclerView android:id="@+id/listTitleFont"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/TextSmall"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:text="숨기기"
+                    android:textColor="@color/keyColor_3"/>
+
+                <android.support.v7.widget.AppCompatCheckBox android:id="@+id/checkBoxTitleVisible"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp" />
+
+
+                <TextView
+                    style="@style/TextSmall"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:text="글자크기"
+                    android:textColor="@color/keyColor_3"/>
+
+                <SeekBar android:id="@+id/seekBarTitleSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="@color/keyColor_2">
+
+
+        <TextView
+            style="@style/TextSmall"
+            android:layout_height="match_parent"
+            android:text="내용"
+            android:textColor="@color/keyColor_1"
+            android:padding="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/TextSmall"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:text="폰트"
+                    android:textColor="@color/keyColor_3"/>
+
+                <android.support.v7.widget.RecyclerView android:id="@+id/listDescFont"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/TextSmall"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:text="숨기기"
+                    android:textColor="@color/keyColor_3"/>
+
+                <android.support.v7.widget.AppCompatCheckBox android:id="@+id/checkBoxDescVisible"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp" />
+
+
+                <TextView
+                    style="@style/TextSmall"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:text="글자크기"
+                    android:textColor="@color/keyColor_3"/>
+
+                <SeekBar android:id="@+id/seekBarDescSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

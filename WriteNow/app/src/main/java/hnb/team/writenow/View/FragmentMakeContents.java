@@ -26,6 +26,7 @@ import hnb.team.writenow.Model.Contents;
 import hnb.team.writenow.Presenter.MakeContentsPresenter;
 import hnb.team.writenow.Presenter.MakeContentsPresenterImpl;
 import hnb.team.writenow.R;
+import hnb.team.writenow.Temp.WriteActivity;
 import hnb.team.writenow.Util.ValueHelper;
 
 /**
@@ -92,7 +93,8 @@ public class FragmentMakeContents extends BaseFragment implements MakeContentsPr
     public void onClickView(int position, Object data) {
         Contents contents = (Contents) data;
         if(contents.getContentsId() == AdapterMakeContents.ADD_BUTTON_ID){
-            Intent intent = new Intent(getActivity(), WriteActivity.class);
+//            Intent intent = new Intent(getActivity(), WriteActivity.class);
+            Intent intent = new Intent(getActivity(), CustomActivity.class);
             getActivity().startActivityForResult(intent, REQUEST_MAKE_CONTENTS);
         }else{
             changePreViewImage(contents);

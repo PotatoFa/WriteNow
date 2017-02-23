@@ -2,7 +2,6 @@ package hnb.team.writenow;
 
 import android.Manifest;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import butterknife.OnClick;
 import hnb.team.writenow.ExtendsClass.BaseActivity;
 import hnb.team.writenow.View.MainActivity;
-import hnb.team.writenow.View.WriteActivity;
 
 public class SplashActivity extends BaseActivity {
 

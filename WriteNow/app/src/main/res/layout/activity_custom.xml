@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_custom"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hnb.team.writenow.View.CustomActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar android:id="@+id/mainToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:contentInsetStart="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <Button android:id="@+id/completeButton"
+                    style="@style/TextButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/keyColor_4"
+                    android:text="@string/str_write_complete"/>
+
+
+                <Button android:id="@+id/changeImageButton"
+                    style="@style/TextButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/keyColor_4"
+                    android:text="@string/str_change_image"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/mainToolbar">
+
+            <include layout="@layout/layout_make_contents"/>
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/coverView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"
+            android:alpha="0"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <LinearLayout android:id="@+id/bottomSheetLayout"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:orientation="vertical"
+        app:behavior_peekHeight="40dp"
+        app:behavior_hideable="false"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <LinearLayout android:id="@+id/bottomOverMenuLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="#60000000">
+
+            <LinearLayout android:id="@+id/changeTempleteLayout"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:paddingRight="4dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_templete_white_v" />
+
+                <TextView
+                    style="@style/TextSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ECEFF1"
+                    android:text="@string/str_change_templete"/>
+
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/changeTextLayout"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:orientation="horizontal">
+
+                <ImageButton android:id="@+id/ddd"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:paddingRight="4dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_pen_v" />
+
+                <TextView
+                    style="@style/TextSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ECEFF1"
+                    android:text="@string/str_change_color"/>
+
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/changeColorLayout"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:paddingRight="4dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_shape_v" />
+
+                <TextView
+                    style="@style/TextSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ECEFF1"
+                    android:text="@string/str_change_color"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView android:id="@+id/imageRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <include layout="@layout/layout_bottom_text_setting"/>
+
+        <include layout="@layout/layout_bottom_color_setting"/>
+
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

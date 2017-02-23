@@ -20,9 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.WriteActivity"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".View.MainActivity"></activity>
+        <activity
+            android:name=".Temp.WriteActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".View.MainActivity" />
+        <activity android:name=".View.CustomActivity"></activity>
     </application>
 
 </manifest>

@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:id="@+id/drawerLayout">
 
-        <RelativeLayout
+        <android.support.percent.PercentRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -34,18 +34,65 @@
                         android:textColor="@color/keyColor_4"
                         android:text="@string/str_write_complete"/>
 
+
+                    <Button android:id="@+id/changeImageButton"
+                        style="@style/TextButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/keyColor_4"
+                        android:text="@string/str_change_image"/>
+
+
                 </RelativeLayout>
 
             </android.support.v7.widget.Toolbar>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <android.support.percent.PercentRelativeLayout android:id="@+id/customContentsLayout"
+                app:layout_widthPercent="100%"
+                app:layout_aspectRatio="100%"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@id/mainToolbar">
 
-                <include layout="@layout/layout_make_contents"/>
+                <ImageView android:id="@+id/previewImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pic_6"/>
 
-            </FrameLayout>
+                <RelativeLayout android:id="@+id/textBox"
+                    app:layout_widthPercent="80%"
+                    app:layout_aspectRatio="150%"
+                    android:layout_centerInParent="true"
+                    android:padding="30dp"
+                    android:background="#80000000">
+
+                    <EditText android:id="@+id/editTitleText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_centerHorizontal="true"
+                        android:maxLines="2"
+                        android:background="@android:color/transparent"
+                        android:textColor="#B6FBEB"
+                        android:textSize="26dp"
+                        android:text="제목을 입력해주세요"/>
+
+                    <EditText android:id="@+id/editDescText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/editTitleText"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center"
+                        android:background="@android:color/transparent"
+                        android:maxLines="2"
+                        android:textColor="#EAEAE8"
+                        android:textSize="18dp"
+                        android:text="내용을 입력해주세요 \n입력해주세요"/>
+
+                </RelativeLayout>
+
+            </android.support.percent.PercentRelativeLayout>
 
             <View
                 android:id="@+id/coverView"
@@ -56,23 +103,132 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true" />
 
-        </RelativeLayout>
+        </android.support.percent.PercentRelativeLayout>
 
         <RelativeLayout android:id="@+id/bottomSheetLayout"
             android:layout_width="match_parent"
             android:layout_height="240dp"
             android:orientation="vertical"
-            app:behavior_peekHeight="0dp"
+            app:behavior_peekHeight="36dp"
             app:behavior_hideable="false"
             app:layout_behavior="@string/bottom_sheet_behavior">
+
+            <LinearLayout android:id="@+id/bottomOverMenuLayout"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:orientation="horizontal"
+                android:background="#60000000">
+
+                <LinearLayout android:id="@+id/changeTempleteLayout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="4dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_templete_white_v" />
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ECEFF1"
+                        android:text="@string/str_change_templete"/>
+
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/changeImageLayout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="4dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_templete_white_v" />
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ECEFF1"
+                        android:text="@string/str_change_image"/>
+
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/changeColorLayout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="4dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_shape_v" />
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ECEFF1"
+                        android:text="@string/str_change_color"/>
+
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/changeTextLayout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:background="?attr/selectableItemBackground"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:orientation="horizontal">
+
+                    <ImageButton android:id="@+id/ddd"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="4dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_pen_v" />
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ECEFF1"
+                        android:text="@string/str_change_color"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView android:id="@+id/imageRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="invisible"/>
-
-            <include
-                layout="@layout/layout_text_setting"/>
 
         </RelativeLayout>
 

@@ -10,11 +10,18 @@
     <string name="str_change_templete">템플릿 바꾸기</string>
     <string name="str_change_image">사진 바꾸기</string>
 
-    <string name="str_change_setting">모양 수정하기</string>
+    <string name="str_change_color">색 수정하기</string>
     <string name="str_change_text">내용 수정하기</string>
 
     <string name="str_step_title">제목 입력</string>
     <string name="str_step_desc">내용 입력</string>
-    <string name="str_change_color">색상 선택</string>
+
+
+    <string name="str_color_box">덮개색상</string>
+    <string name="str_color_title">제목색상</string>
+    <string name="str_color_desc">내용색상</string>
+    <string name="str_color_image_filter">사진필터</string>
+
+
 
 </resources>

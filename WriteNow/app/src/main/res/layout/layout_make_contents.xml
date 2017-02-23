@@ -5,89 +5,9 @@
     android:background="@color/keyColor_1"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout android:id="@+id/topLayout"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="40dp">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp">
-
-            <TextView android:id="@+id/changeTitleSetting"
-                style="@style/TextSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/keyColor_3"
-                android:text="@string/str_step_title"/>
-
-            <View
-                style="@style/ViewUnderLine"
-                android:layout_width="24dp"
-                android:background="@color/keyColor_3"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="4dp"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp">
-
-            <TextView android:id="@+id/changeDescSetting"
-                style="@style/TextSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/keyColor_3"
-                android:text="@string/str_step_desc"/>
-
-            <View
-                style="@style/ViewUnderLine"
-                android:layout_width="24dp"
-                android:background="@color/keyColor_3"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="4dp"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp">
-
-            <TextView android:id="@+id/changeColorSetting"
-                style="@style/TextSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/keyColor_3"
-                android:text="@string/str_change_color"/>
-
-            <View
-                style="@style/ViewUnderLine"
-                android:layout_width="24dp"
-                android:background="@color/keyColor_3"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="4dp"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
     <android.support.percent.PercentRelativeLayout android:id="@+id/customContentsLayout"
         app:layout_widthPercent="100%"
         app:layout_aspectRatio="100%"
-        android:layout_marginTop="12dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/topLayout">
 
@@ -131,62 +51,5 @@
         </RelativeLayout>
 
     </android.support.percent.PercentRelativeLayout>
-
-    <android.support.percent.PercentRelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="16dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageButton android:id="@+id/changeTempleteButton"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:padding="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_templete_v"/>
-
-            <TextView
-                style="@style/TextSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/str_change_templete"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="16dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageButton android:id="@+id/changeImageButton"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:padding="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_picture_v"/>
-
-            <TextView
-                style="@style/TextSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/str_change_image"/>
-
-        </LinearLayout>
-
-    </android.support.percent.PercentRelativeLayout>
-
 
 </android.support.percent.PercentRelativeLayout>
