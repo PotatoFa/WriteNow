@@ -3,6 +3,7 @@ package hnb.team.writenow.View;
 import android.animation.ValueAnimator;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.percent.PercentRelativeLayout;
@@ -31,6 +32,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import gun0912.tedbottompicker.TedBottomPicker;
 import hnb.team.writenow.Adapter.AdapterFontItems;
 import hnb.team.writenow.Adapter.AdapterImageFilterColors;
 import hnb.team.writenow.Adapter.AdapterTextColors;
@@ -78,9 +80,6 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
 
     private void initBottomSheet(){
 
-        bottomTextSettingLayout.setNestedScrollingEnabled(true);
-        bottomColorSettingLayout.setNestedScrollingEnabled(true);
-
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -89,6 +88,10 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
                 if(newState == BottomSheetBehavior.STATE_DRAGGING)
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
+                if(newState == BottomSheetBehavior.STATE_COLLAPSED){
+                    AnimationHelper.animationToView(bottomOverMenuLayout, VISIBLE);
+                    AnimationHelper.animationToView(bottomOverImageMenuLayout, GONE);
+                }
             }
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
@@ -261,11 +264,11 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
 
         switch (backgroundTheme){
             case BACKGROUND_THEME_LIGHT:
-                titleTextColorAdapter.setSource(ColorItem.getDarknessColorList());
+                titleTextColorAdapter.setSource(ColorItem.getBrightColorList());
                 descTextColorAdapter.setSource(ColorItem.getBrightColorList());
                 break;
             case BACKGROUND_THEME_DARK:
-                titleTextColorAdapter.setSource(ColorItem.getBrightColorList());
+                titleTextColorAdapter.setSource(ColorItem.getDarknessColorList());
                 descTextColorAdapter.setSource(ColorItem.getDarknessColorList());
                 break;
             case BACKGROUND_THEME_NONE:
@@ -300,9 +303,13 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
     @Bind(R.id.changeTextLayout) LinearLayout changeTextLayout;
     @Bind(R.id.changeColorLayout) LinearLayout changeColorLayout;
 
+    @Bind(R.id.bottomOverImageMenuLayout) LinearLayout bottomOverImageMenuLayout;
+    @Bind(R.id.searchGalleryLayout) LinearLayout searchGalleryLayout;
+    @Bind(R.id.searchWebLayout) LinearLayout searchWebLayout;
+
     @Bind(R.id.imageRecyclerView) RecyclerView imageRecyclerView;
 
-    @Bind(R.id.bottomTextSettingLayout) NestedScrollView bottomTextSettingLayout;
+    @Bind(R.id.bottomTextSettingLayout) LinearLayout bottomTextSettingLayout;
 
     @Bind(R.id.listTitleFont) RecyclerView listTitleFont;
     @Bind(R.id.listDescFont) RecyclerView listDescFont;
@@ -310,7 +317,7 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
     @Bind(R.id.seekBarTitleSize) SeekBar seekBarTitleSize;
     @Bind(R.id.seekBarDescSize) SeekBar seekBarDescSize;
 
-    @Bind(R.id.bottomColorSettingLayout) NestedScrollView bottomColorSettingLayout;
+    @Bind(R.id.bottomColorSettingLayout) LinearLayout bottomColorSettingLayout;
 
     @Bind(R.id.seekBarBoxColor) SeekBar seekBarBoxColor;
 
@@ -338,13 +345,50 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
 
     @OnClick(R.id.changeImageButton)
     public void changeImageButton(){
+
         squareImageAdapter.setSource(getTextImageData());
         imageRecyclerView.setVisibility(View.VISIBLE);
         bottomColorSettingLayout.setVisibility(View.GONE);
         bottomTextSettingLayout.setVisibility(View.GONE);
 
+        AnimationHelper.animationToView(bottomOverMenuLayout, GONE);
+        AnimationHelper.animationToView(bottomOverImageMenuLayout, VISIBLE);
+
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
+
+    @OnClick(R.id.searchGalleryLayout)
+    public void searchGalleryLayout(){
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+        TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(this)
+                .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
+                    @Override
+                    public void onImageSelected(final Uri uri) {
+                        Log.d("ted", "uri: " + uri);
+                        Log.d("ted", "uri.getPath(): " + uri.getPath());
+
+                        Glide.with(getApplicationContext())
+                                //.load(uri.toString())
+                                .load(uri)
+                                .into(previewImage);
+
+
+                    }
+                }).showCameraTile(false)
+                .setPeekHeight(1200)
+                .create();
+
+        bottomSheetDialogFragment.show(getSupportFragmentManager());
+
+    }
+
+    @OnClick(R.id.searchWebLayout)
+    public void searchWebLayout(){
+
+    }
+
 
     @OnClick(R.id.completeButton)
     public void completeButton(){
@@ -442,7 +486,7 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
 
     private void showFinishedDialog(){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
 
         builder.setMessage(getResources().getString(R.string.str_custom_finish));
 

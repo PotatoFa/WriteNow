@@ -70,91 +70,162 @@
         app:behavior_hideable="false"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
-        <LinearLayout android:id="@+id/bottomOverMenuLayout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:background="#60000000">
+            android:layout_height="40dp">
 
-            <LinearLayout android:id="@+id/changeTempleteLayout"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+            <LinearLayout android:id="@+id/bottomOverMenuLayout"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#60000000">
 
-                <ImageButton
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:paddingRight="4dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_templete_white_v" />
+                <LinearLayout android:id="@+id/changeTempleteLayout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    style="@style/TextSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ECEFF1"
-                    android:text="@string/str_change_templete"/>
+                    <ImageButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="4dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_templete_white_v" />
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ECEFF1"
+                        android:text="@string/str_change_templete"/>
+
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/changeTextLayout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:orientation="horizontal">
+
+                    <ImageButton android:id="@+id/ddd"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="4dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_pen_white_v" />
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ECEFF1"
+                        android:text="@string/str_change_text"/>
+
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/changeColorLayout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="4dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_shape_v" />
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ECEFF1"
+                        android:text="@string/str_change_color"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout android:id="@+id/changeTextLayout"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+            <LinearLayout android:id="@+id/bottomOverImageMenuLayout"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/selectableItemBackground"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:background="#60000000">
 
-                <ImageButton android:id="@+id/ddd"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:paddingRight="4dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_pen_white_v" />
+                <LinearLayout android:id="@+id/searchGalleryLayout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    style="@style/TextSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ECEFF1"
-                    android:text="@string/str_change_text"/>
+                    <ImageButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="4dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_templete_white_v" />
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ECEFF1"
+                        android:text="@string/str_search_gallery"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout android:id="@+id/searchWebLayout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="4dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_shape_v" />
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ECEFF1"
+                        android:text="@string/str_search_web"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout android:id="@+id/changeColorLayout"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:paddingRight="4dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_shape_v" />
-
-                <TextView
-                    style="@style/TextSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ECEFF1"
-                    android:text="@string/str_change_color"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView android:id="@+id/imageRecyclerView"
             android:layout_width="match_parent"
@@ -162,16 +233,12 @@
             android:nestedScrollingEnabled="true"
             android:visibility="gone"/>
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/bottomTextSettingLayout"
-            android:visibility="visible"
-            android:background="@color/keyColor_1">
-
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
+                android:id="@+id/bottomTextSettingLayout"
+                android:visibility="visible"
+                android:background="@color/keyColor_1"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -332,19 +399,13 @@
 
             </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/keyColor_1"
-            android:visibility="gone"
-            android:id="@+id/bottomColorSettingLayout">
-
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/keyColor_1"
+                android:visibility="gone"
+                android:id="@+id/bottomColorSettingLayout">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -431,8 +492,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 

@@ -15,12 +15,14 @@ public class ColorItem {
 
         List<Integer> brightColorList = new ArrayList<Integer>();
 
-        brightColorList.add(Color.parseColor("#353533"));
-        brightColorList.add(Color.parseColor("#003302"));
-        brightColorList.add(Color.parseColor("#d30211"));
-        brightColorList.add(Color.parseColor("#359911"));
-        brightColorList.add(Color.parseColor("#3dc03d"));
-        brightColorList.add(Color.parseColor("#5930f1"));
+        brightColorList.add(Color.parseColor("#000000"));
+        brightColorList.add(Color.parseColor("#00AAA0"));
+        brightColorList.add(Color.parseColor("#FF4C3B"));
+        brightColorList.add(Color.parseColor("#0072BB"));
+        brightColorList.add(Color.parseColor("#FF4500"));
+        brightColorList.add(Color.parseColor("#462066"));
+        brightColorList.add(Color.parseColor("#32B92D"));
+        brightColorList.add(Color.parseColor("#FFD034"));
 
         return brightColorList;
     }
@@ -29,12 +31,13 @@ public class ColorItem {
 
         List<Integer> darknessColorList = new ArrayList<Integer>();
 
-        darknessColorList.add(Color.parseColor("#359911"));
-        darknessColorList.add(Color.parseColor("#3dc03d"));
-        darknessColorList.add(Color.parseColor("#5930f1"));
-        darknessColorList.add(Color.parseColor("#353533"));
-        darknessColorList.add(Color.parseColor("#003302"));
-        darknessColorList.add(Color.parseColor("#d30211"));
+        darknessColorList.add(Color.parseColor("#FFFFFF"));
+        darknessColorList.add(Color.parseColor("#FF4500"));
+        darknessColorList.add(Color.parseColor("#FFD034"));
+        darknessColorList.add(Color.parseColor("#00AAA0"));
+        darknessColorList.add(Color.parseColor("#FF4C3B"));
+        darknessColorList.add(Color.parseColor("#C6C8CA"));
+        darknessColorList.add(Color.parseColor("#0072BB"));
 
         return darknessColorList;
     }
@@ -47,6 +50,8 @@ public class ColorItem {
         imageFilterColorList.add(Color.parseColor("#99003302"));
         imageFilterColorList.add(Color.parseColor("#99d30211"));
         imageFilterColorList.add(Color.parseColor("#99359911"));
+        imageFilterColorList.add(Color.parseColor("#993dc03d"));
+        imageFilterColorList.add(Color.parseColor("#995930f1"));
         imageFilterColorList.add(Color.parseColor("#993dc03d"));
         imageFilterColorList.add(Color.parseColor("#995930f1"));
 
