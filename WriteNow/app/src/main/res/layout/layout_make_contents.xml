@@ -17,16 +17,22 @@
             android:scaleType="centerCrop"
             android:src="@drawable/pic_6"/>
 
+        <View android:id="@+id/imageFilterView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.15"/>
+
         <RelativeLayout android:id="@+id/textBox"
             app:layout_widthPercent="80%"
-            app:layout_aspectRatio="150%"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:padding="30dp"
-            android:background="#80000000">
+            android:padding="16dp"
+            android:background="#88000000">
 
             <EditText android:id="@+id/editTitleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="12dp"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
                 android:maxLines="2"
@@ -39,8 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_margin="12dp"
                 android:layout_below="@id/editTitleText"
-                android:layout_marginTop="24dp"
                 android:gravity="center"
                 android:background="@android:color/transparent"
                 android:maxLines="2"

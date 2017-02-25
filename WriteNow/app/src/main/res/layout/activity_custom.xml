@@ -67,7 +67,7 @@
         android:layout_height="240dp"
         android:orientation="vertical"
         app:behavior_peekHeight="40dp"
-        app:behavior_hideable="false"
+        app:behavior_hideable="true"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <LinearLayout android:id="@+id/bottomOverMenuLayout"
@@ -107,7 +107,7 @@
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackground"
                 android:layout_alignParentRight="true"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:orientation="horizontal">
@@ -117,14 +117,14 @@
                     android:layout_width="wrap_content"
                     android:paddingRight="4dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_pen_v" />
+                    android:src="@drawable/ic_pen_white_v" />
 
                 <TextView
                     style="@style/TextSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#ECEFF1"
-                    android:text="@string/str_change_color"/>
+                    android:text="@string/str_change_text"/>
 
             </LinearLayout>
 
@@ -153,7 +153,6 @@
                     android:text="@string/str_change_color"/>
 
             </LinearLayout>
-
 
         </LinearLayout>
 

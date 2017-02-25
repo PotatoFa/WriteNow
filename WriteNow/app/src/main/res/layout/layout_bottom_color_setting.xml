@@ -4,7 +4,6 @@
     android:layout_height="200dp"
     android:background="@color/keyColor_1"
     android:id="@+id/bottomColorSettingLayout"
-    android:visibility="gone"
     android:orientation="vertical">
 
     <LinearLayout
@@ -22,7 +21,11 @@
 
         <SeekBar android:id="@+id/seekBarBoxColor"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:max="8"
+            android:progress="6"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"/>
 
     </LinearLayout>
 

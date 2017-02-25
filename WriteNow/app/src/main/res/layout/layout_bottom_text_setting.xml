@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:id="@+id/bottomTextSettingLayout"
-    android:visibility="gone"
     android:background="@color/keyColor_1">
 
     <LinearLayout
@@ -72,6 +71,8 @@
                 <SeekBar android:id="@+id/seekBarTitleSize"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:max="16"
+                    android:progress="8"
                     android:layout_gravity="center_vertical"/>
 
 
@@ -113,7 +114,7 @@
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:text="폰트"
-                    android:textColor="@color/keyColor_3"/>
+                    android:textColor="@color/keyColor_1"/>
 
                 <android.support.v7.widget.RecyclerView android:id="@+id/listDescFont"
                     android:layout_width="match_parent"
@@ -132,7 +133,7 @@
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:text="숨기기"
-                    android:textColor="@color/keyColor_3"/>
+                    android:textColor="@color/keyColor_1"/>
 
                 <android.support.v7.widget.AppCompatCheckBox android:id="@+id/checkBoxDescVisible"
                     android:layout_width="36dp"
@@ -149,6 +150,8 @@
                 <SeekBar android:id="@+id/seekBarDescSize"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:max="16"
+                    android:progress="8"
                     android:layout_gravity="center_vertical"/>
 
 
