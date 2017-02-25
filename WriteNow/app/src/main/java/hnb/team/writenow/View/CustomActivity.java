@@ -6,6 +6,8 @@ import android.graphics.PorterDuffColorFilter;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.percent.PercentRelativeLayout;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,12 +78,17 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
 
     private void initBottomSheet(){
 
+        bottomTextSettingLayout.setNestedScrollingEnabled(true);
+        bottomColorSettingLayout.setNestedScrollingEnabled(true);
+
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                if(newState == BottomSheetBehavior.STATE_DRAGGING)
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
             }
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
@@ -89,6 +98,7 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
     }
 
     private SquareImageAdapter squareImageAdapter;
+
     private void initImageList(){
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
@@ -98,7 +108,7 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
         imageRecyclerView.setAdapter(squareImageAdapter);
         squareImageAdapter.setAdapterOnClickListener((position, data) -> {
             PixaBayImage pixaBayImage = (PixaBayImage) data;
-            Log.i("onCLICK", String.valueOf(pixaBayImage.getTestImageUrl()));
+            Glide.with(this).load(pixaBayImage.getTestImageUrl()).into(previewImage);
         });
     }
 
@@ -181,6 +191,7 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
     AdapterTextColors descTextColorAdapter;
     AdapterImageFilterColors adapterImageFilterColors;
     List<Integer> textBoxColorList = ColorItem.getTextBoxColorList();
+
     private void initColorSetting(){
 
         seekBarBoxColor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -291,7 +302,7 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
 
     @Bind(R.id.imageRecyclerView) RecyclerView imageRecyclerView;
 
-    @Bind(R.id.bottomTextSettingLayout) LinearLayout bottomTextSettingLayout;
+    @Bind(R.id.bottomTextSettingLayout) NestedScrollView bottomTextSettingLayout;
 
     @Bind(R.id.listTitleFont) RecyclerView listTitleFont;
     @Bind(R.id.listDescFont) RecyclerView listDescFont;
@@ -299,8 +310,7 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
     @Bind(R.id.seekBarTitleSize) SeekBar seekBarTitleSize;
     @Bind(R.id.seekBarDescSize) SeekBar seekBarDescSize;
 
-
-    @Bind(R.id.bottomColorSettingLayout) LinearLayout bottomColorSettingLayout;
+    @Bind(R.id.bottomColorSettingLayout) NestedScrollView bottomColorSettingLayout;
 
     @Bind(R.id.seekBarBoxColor) SeekBar seekBarBoxColor;
 
@@ -332,7 +342,8 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
         imageRecyclerView.setVisibility(View.VISIBLE);
         bottomColorSettingLayout.setVisibility(View.GONE);
         bottomTextSettingLayout.setVisibility(View.GONE);
-        bottomSheetAnimate(bottomVisibleHeight);
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     @OnClick(R.id.completeButton)
@@ -354,7 +365,8 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
         bottomTextSettingLayout.setVisibility(View.VISIBLE);
         bottomColorSettingLayout.setVisibility(View.GONE);
         imageRecyclerView.setVisibility(View.GONE);
-        bottomSheetAnimate(bottomVisibleHeight);
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     @OnClick(R.id.changeColorLayout)
@@ -362,7 +374,8 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
         bottomColorSettingLayout.setVisibility(View.VISIBLE);
         bottomTextSettingLayout.setVisibility(View.GONE);
         imageRecyclerView.setVisibility(View.GONE);
-        bottomSheetAnimate(bottomVisibleHeight);
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     @Override
@@ -390,12 +403,17 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
     @Override
     public void onBackPressed() {
 
-        Log.i("BACKPRESS", "Current peek height : " + bottomSheetBehavior.getPeekHeight());
-        if(bottomSheetBehavior.getPeekHeight() != bottomInvisibleHeight){
-            bottomSheetAnimate(bottomInvisibleHeight);
+        if(bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED){
+
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
             return;
         }
-        super.onBackPressed();
+
+        showFinishedDialog();
+
+        //super.onBackPressed();
+
     }
 
     private List<PixaBayImage> getTextImageData(){
@@ -420,6 +438,26 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
         }
 
         return pixaBayImages;
+    }
+
+    private void showFinishedDialog(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+
+        builder.setMessage(getResources().getString(R.string.str_custom_finish));
+
+        builder.setPositiveButton(getResources().getString(R.string.str_custom_finish_ok), (dialog, which) -> {
+            dialog.cancel();
+            finish();
+        });
+
+        builder.setNegativeButton(getResources().getString(R.string.str_custom_finish_cancel), (dialog, which) -> {
+            dialog.cancel();
+        });
+
+        AlertDialog alertDialog = builder.create();
+
+        alertDialog.show();
     }
 
 

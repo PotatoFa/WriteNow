@@ -25,5 +25,8 @@
     <string name="str_color_image_filter">사진필터</string>
 
 
+    <string name="str_custom_finish">작성을 취소하시겠습니까?\n현재 내용은 저장되지 않습니다</string>
+    <string name="str_custom_finish_ok">나가기</string>
+    <string name="str_custom_finish_cancel">계속하기</string>
 
 </resources>

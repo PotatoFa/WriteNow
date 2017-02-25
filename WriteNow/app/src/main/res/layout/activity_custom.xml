@@ -5,8 +5,8 @@
     android:id="@+id/activity_custom"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="hnb.team.writenow.View.CustomActivity">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -67,7 +67,7 @@
         android:layout_height="240dp"
         android:orientation="vertical"
         app:behavior_peekHeight="40dp"
-        app:behavior_hideable="true"
+        app:behavior_hideable="false"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <LinearLayout android:id="@+id/bottomOverMenuLayout"
@@ -159,11 +159,280 @@
         <android.support.v7.widget.RecyclerView android:id="@+id/imageRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true"
             android:visibility="gone"/>
 
-        <include layout="@layout/layout_bottom_text_setting"/>
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/bottomTextSettingLayout"
+            android:visibility="visible"
+            android:background="@color/keyColor_1">
 
-        <include layout="@layout/layout_bottom_color_setting"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_height="match_parent"
+                        android:text="제목"
+                        android:textColor="@color/keyColor_3"
+                        android:padding="12dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                style="@style/TextSmall"
+                                android:layout_width="60dp"
+                                android:layout_height="match_parent"
+                                android:text="폰트"
+                                android:textColor="@color/keyColor_3"/>
+
+                            <android.support.v7.widget.RecyclerView android:id="@+id/listTitleFont"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:nestedScrollingEnabled="true"/>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                style="@style/TextSmall"
+                                android:layout_width="60dp"
+                                android:layout_height="match_parent"
+                                android:text="숨기기"
+                                android:textColor="@color/keyColor_3"/>
+
+                            <android.support.v7.widget.AppCompatCheckBox android:id="@+id/checkBoxTitleVisible"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp" />
+
+
+                            <TextView
+                                style="@style/TextSmall"
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:text="글자크기"
+                                android:textColor="@color/keyColor_3"/>
+
+                            <SeekBar android:id="@+id/seekBarTitleSize"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:max="16"
+                                android:progress="8"
+                                android:layout_gravity="center_vertical"/>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:background="@color/keyColor_2">
+
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_height="match_parent"
+                        android:text="내용"
+                        android:textColor="@color/keyColor_1"
+                        android:padding="12dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                style="@style/TextSmall"
+                                android:layout_width="60dp"
+                                android:layout_height="match_parent"
+                                android:text="폰트"
+                                android:textColor="@color/keyColor_1"/>
+
+                            <android.support.v7.widget.RecyclerView android:id="@+id/listDescFont"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                style="@style/TextSmall"
+                                android:layout_width="60dp"
+                                android:layout_height="match_parent"
+                                android:text="숨기기"
+                                android:textColor="@color/keyColor_1"/>
+
+                            <android.support.v7.widget.AppCompatCheckBox android:id="@+id/checkBoxDescVisible"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp" />
+
+
+                            <TextView
+                                style="@style/TextSmall"
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:text="글자크기"
+                                android:textColor="@color/keyColor_3"/>
+
+                            <SeekBar android:id="@+id/seekBarDescSize"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:max="16"
+                                android:progress="8"
+                                android:layout_gravity="center_vertical"/>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/keyColor_1"
+            android:visibility="gone"
+            android:id="@+id/bottomColorSettingLayout">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/str_color_box"
+                        android:layout_margin="12dp"
+                        android:textColor="@color/keyColor_3" />
+
+                    <SeekBar android:id="@+id/seekBarBoxColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:max="8"
+                        android:progress="6"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/str_color_title"
+                        android:layout_margin="12dp"
+                        android:textColor="@color/keyColor_3" />
+
+
+                    <android.support.v7.widget.RecyclerView android:id="@+id/listTitleColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:nestedScrollingEnabled="true" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/str_color_desc"
+                        android:layout_margin="12dp"
+                        android:textColor="@color/keyColor_3" />
+
+                    <android.support.v7.widget.RecyclerView android:id="@+id/listDescColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:nestedScrollingEnabled="true" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        style="@style/TextSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/str_color_image_filter"
+                        android:layout_margin="12dp"
+                        android:textColor="@color/keyColor_3" />
+
+                    <android.support.v7.widget.RecyclerView android:id="@+id/listImageFilterColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:nestedScrollingEnabled="true" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 

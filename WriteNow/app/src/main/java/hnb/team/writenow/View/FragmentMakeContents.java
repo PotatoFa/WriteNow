@@ -26,7 +26,7 @@ import hnb.team.writenow.Model.Contents;
 import hnb.team.writenow.Presenter.MakeContentsPresenter;
 import hnb.team.writenow.Presenter.MakeContentsPresenterImpl;
 import hnb.team.writenow.R;
-import hnb.team.writenow.Temp.WriteActivity;
+
 import hnb.team.writenow.Util.ValueHelper;
 
 /**

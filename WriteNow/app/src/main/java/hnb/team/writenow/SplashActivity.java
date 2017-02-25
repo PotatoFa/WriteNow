@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import butterknife.OnClick;
 import hnb.team.writenow.ExtendsClass.BaseActivity;
+import hnb.team.writenow.View.CustomActivity;
 import hnb.team.writenow.View.MainActivity;
 
 public class SplashActivity extends BaseActivity {
@@ -34,7 +35,8 @@ public class SplashActivity extends BaseActivity {
         permissionListener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), CustomActivity.class));
             }
             @Override
             public void onPermissionDenied(ArrayList<String> arrayList) {
