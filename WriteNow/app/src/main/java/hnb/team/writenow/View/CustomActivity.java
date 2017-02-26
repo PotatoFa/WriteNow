@@ -25,6 +25,9 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +62,8 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom);
 
+        initAdmobSetting();
+
         initBottomSheet();
 
         initCardLayout();
@@ -73,8 +78,28 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
 
     }
 
+
+    private InterstitialAd interstitialAd;
+
+    private void initAdmobSetting(){
+        interstitialAd = new InterstitialAd(this); //새 광고를 만듭니다.
+        interstitialAd.setAdUnitId(getResources().getString(R.string.admob_fullscreen_after_write)); //이전에 String에 저장해 두었던 광고 ID를 전면 광고에 설정합니다.
+        AdRequest adRequest1 = new AdRequest.Builder()
+                .addTestDevice("E5DDE62BA30D319E26568FBFFDDCC586")
+                .build();
+        interstitialAd.loadAd(adRequest1);
+        interstitialAd.setAdListener(new AdListener() { //전면 광고의 상태를 확인하는 리스너 등록
+            @Override
+            public void onAdClosed() { //전면 광고가 열린 뒤에 닫혔을 때
+                if(fileSaveState)
+                    showFinishedDialog();
+                Log.i("ADBOM", "finish and save");
+            }
+        });
+    }
+
     private void initCardLayout(){
-        customContentsLayout.setDrawingCacheEnabled(true);
+        customContentsLayout.setDrawingCacheEnabled(false);
         customContentsLayout.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
     }
 
@@ -387,11 +412,23 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
     @OnClick(R.id.searchWebLayout)
     public void searchWebLayout(){
 
+
     }
 
+    public void displayAD(){
+        if(interstitialAd.isLoaded()) { //광고가 로드 되었을 시
+            interstitialAd.show(); //보여준다
+        }
+    }
 
     @OnClick(R.id.completeButton)
     public void completeButton(){
+
+        displayAD();
+
+        customContentsLayout.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
+        customContentsLayout.setDrawingCacheEnabled(true);
 
         customContentsLayout.buildDrawingCache();
 
@@ -422,9 +459,13 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
+
+    boolean fileSaveState = false;
+
     @Override
     public void onCompleteFileSave(String filePath) {
-        Log.i("onComplete", "File Save : " + filePath);
+        customContentsLayout.setDrawingCacheEnabled(false);
+        fileSaveState = true;
     }
 
     private final int bottomInvisibleHeight = ValueHelper.dpToPx(40);

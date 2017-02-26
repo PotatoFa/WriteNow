@@ -1,7 +1,9 @@
 package hnb.team.writenow.Util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
@@ -51,12 +53,8 @@ public class AsyncSaveToImage extends AsyncTask<Bitmap, Integer, String>{
 
     @Override
     protected void onPostExecute(String s) {
-//        fileSaveListener.onCompleteFileSave(s);
-        super.onPostExecute(s);
-        /*
-        Log.i("POST", s);
         fileSaveListener.onCompleteFileSave(s);
-        */
+        super.onPostExecute(s);
     }
 
     @Override
@@ -67,11 +65,15 @@ public class AsyncSaveToImage extends AsyncTask<Bitmap, Integer, String>{
 
     public void excuteSaveCard(Bitmap saveBitmap) {
         boolean result = true;
-        String savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/hnb";
-        File saveFile = new File(savePath);
 
-        if (!saveFile.exists())
-            result = saveFile.mkdir();
+        String hnbFolderPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/hnb";
+
+        String saveImagePath = hnbFolderPath;
+
+        File hnbFolder = new File(hnbFolderPath);
+
+        if (!hnbFolder.exists())
+            result = hnbFolder.mkdir();
 
         if (!result) {
             onCancelled("failed folder create");
@@ -79,16 +81,14 @@ public class AsyncSaveToImage extends AsyncTask<Bitmap, Integer, String>{
 
         if (!result) return;
 
-        int fileCounts = saveFile.listFiles().length;
+        int fileCounts = hnbFolder.listFiles().length;
 
-        Log.i("excuteSaveCard", "Folder file count : " + fileCounts);
-
-        savePath += "/cardImage"+ ++fileCounts + ".jpg";
+        saveImagePath += "/cardImage"+ ++fileCounts + ".jpg";
 
         FileOutputStream out = null;
 
         try {
-            out = new FileOutputStream(savePath);
+            out = new FileOutputStream(saveImagePath);
             saveBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
         } catch (FileNotFoundException nfe) {
             Log.d("FileNotFoundException:", nfe.getMessage());
@@ -96,12 +96,17 @@ public class AsyncSaveToImage extends AsyncTask<Bitmap, Integer, String>{
         } finally {
             try {
                 if (out != null) out.close();
-                onPostExecute(savePath);
+                onPostExecute(saveImagePath);
+
+//                MediaScanner.newInstance(context).mediaScanning(hnbFolderPath);
+
+                context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + saveImagePath)));
+
             } catch (IOException ioe) {
                 onCancelled("COMPLETE FAIL");
             }
         }
-        saveBitmap.recycle();
+        //saveBitmap.recycle();
     }
 
 

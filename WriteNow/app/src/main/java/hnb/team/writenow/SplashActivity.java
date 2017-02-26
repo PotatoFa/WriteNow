@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
 import butterknife.OnClick;
 import hnb.team.writenow.ExtendsClass.BaseActivity;
 import hnb.team.writenow.View.CustomActivity;
@@ -22,7 +25,17 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("E5DDE62BA30D319E26568FBFFDDCC586")
+                .build();
+
+        admobBottomBanner.loadAd(request);
+
     }
+
+    @Bind(R.id.admobBottomBanner) AdView admobBottomBanner;
+
     @OnClick(R.id.writeButton)
     public void writeButton(){
         checkPhoneStatePermission();
@@ -35,8 +48,8 @@ public class SplashActivity extends BaseActivity {
         permissionListener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                startActivity(new Intent(getApplicationContext(), CustomActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                startActivity(new Intent(getApplicationContext(), CustomActivity.class));
             }
             @Override
             public void onPermissionDenied(ArrayList<String> arrayList) {

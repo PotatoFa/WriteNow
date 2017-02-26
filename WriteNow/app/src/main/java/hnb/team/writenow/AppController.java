@@ -3,6 +3,7 @@ package hnb.team.writenow;
 import android.app.Application;
 import android.graphics.Typeface;
 
+import com.google.android.gms.ads.AdRequest;
 import com.tsengvn.typekit.Typekit;
 
 /**
@@ -16,6 +17,7 @@ public class AppController extends Application{
         super.onCreate();
 
         initTypeFont();
+
 
     }
 

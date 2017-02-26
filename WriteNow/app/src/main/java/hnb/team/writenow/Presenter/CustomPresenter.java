@@ -15,9 +15,6 @@ public interface CustomPresenter {
     void onClickChangeColor();
 
 
-
-
-
     interface ViewInterface{
 
 

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "604214288865",
+    "firebase_url": "https://writenow-6223f.firebaseio.com",
+    "project_id": "writenow-6223f",
+    "storage_bucket": "writenow-6223f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:604214288865:android:6ddcf1c2aacc5210",
+        "android_client_info": {
+          "package_name": "hnb.team.writenow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "604214288865-q869ogitapb5m7asl651og6d3oiqs4dc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo5h9vIkAkRjIZT-EXkUuN268guC_mrzQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
