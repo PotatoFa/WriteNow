@@ -46,8 +46,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/mainToolbar">
-
-            <include layout="@layout/layout_make_contents"/>
+<!--
+            <include layout="@layout/templete_rect_center"/>-->
+            <include layout="@layout/templete_diagonal_left"/>
 
         </FrameLayout>
 

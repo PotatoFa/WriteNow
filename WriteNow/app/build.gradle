@@ -38,6 +38,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.android.support:percent:24.2.1'
 
+    compile 'com.github.florent37:diagonallayout:1.0.4'
+
     compile 'com.tsengvn:Typekit:1.0.0'
 
     compile 'gun0912.ted:tedpermission:1.0.0'

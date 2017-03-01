@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:diagonal="http://schemas.android.com/tools"
+    android:background="@color/keyColor_1"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.percent.PercentRelativeLayout android:id="@+id/customContentsLayout"
+        app:layout_widthPercent="100%"
+        app:layout_aspectRatio="100%"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/topLayout">
+
+        <ImageView android:id="@+id/previewImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pic_6"/>
+
+        <View android:id="@+id/imageFilterView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.15"/>
+
+        <com.github.florent37.diagonallayout.DiagonalLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_alignParentBottom="true"
+            app:diagonal_angle="15"
+            app:diagonal_direction="left"
+            app:diagonal_position="top"
+            android:elevation="5dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#88333333"/>
+
+            <RelativeLayout android:id="@+id/textBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center_vertical">
+
+                <EditText android:id="@+id/editTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:background="@android:color/transparent"
+                    android:textColor="#B6FBEB"
+                    android:textSize="26dp"
+                    android:text="제목을입력해주세요"/>
+
+                <EditText android:id="@+id/editDescText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:layout_below="@id/editTitleText"
+                    android:background="@android:color/transparent"
+                    android:textColor="#EAEAE8"
+                    android:textSize="18dp"
+                    android:text="내용을 입력해주세요\n입력해주세요"/>
+
+            </RelativeLayout>
+
+        </com.github.florent37.diagonallayout.DiagonalLayout>
+
+    </android.support.percent.PercentRelativeLayout>
+
+</android.support.percent.PercentRelativeLayout>

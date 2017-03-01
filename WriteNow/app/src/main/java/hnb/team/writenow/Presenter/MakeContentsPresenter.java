@@ -10,7 +10,7 @@ import hnb.team.writenow.Model.Contents;
 
 public interface MakeContentsPresenter {
 
-    void excuteMakeContentsList();
+    void excuteMakeContentsList(String customFolderPath);
 
     interface ViewInterface{
         void setMakeContentsList(List<Contents> makeContentsList);

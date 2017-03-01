@@ -108,6 +108,11 @@ public class MainActivity extends BaseActivity implements MainPresenter.ViewInte
         switch (requestCode){
             case REQUEST_MAKE_CONTENTS:{
 
+                Intent intent = new Intent(getApplicationContext(), CustomActivity.class);
+
+                intent.putExtra(FragmentMakeContents.INTENT_DATA_CUSTOM_FOLDER_PATH, data.getStringExtra(FragmentMakeContents.INTENT_DATA_CUSTOM_FOLDER_PATH));
+
+                startActivityForResult(intent, REQUEST_MAKE_CONTENTS);
                 break;
             }
         }

@@ -32,6 +32,10 @@
     <string name="str_custom_finish_ok">나가기</string>
     <string name="str_custom_finish_cancel">계속하기</string>
 
+    <string name="str_custom_success">저장이 완료되었습니다. 다른 카드를 추가하시겠습니까?</string>
+    <string name="str_custom_success_add_card">추가</string>
+    <string name="str_custom_success_complete">완료</string>
+
     <string name="admob_app_id">ca-app-pub-9322286800508543~1289691713</string>
 
     <string name="admob_bottom_banner">ca-app-pub-9322286800508543/5719891316</string>

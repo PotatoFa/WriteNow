@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/keyColor_1"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.percent.PercentRelativeLayout android:id="@+id/customContentsLayout"
+        app:layout_widthPercent="100%"
+        app:layout_aspectRatio="100%"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/topLayout">
+
+        <ImageView android:id="@+id/previewImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pic_6"/>
+
+        <View android:id="@+id/imageFilterView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.15"/>
+
+        <RelativeLayout android:id="@+id/textBox"
+            app:layout_widthPercent="85%"
+            app:layout_aspectRatio="100%"
+            android:layout_centerInParent="true"
+            android:padding="16dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.7"
+                android:background="@drawable/background_oval"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <EditText android:id="@+id/editTitleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:background="@android:color/transparent"
+                    android:textColor="#B6FBEB"
+                    android:textSize="26dp"
+                    android:text="제목을 입력해주세요"/>
+
+                <EditText android:id="@+id/editDescText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:layout_below="@id/editTitleText"
+                    android:gravity="center"
+                    android:background="@android:color/transparent"
+                    android:textColor="#EAEAE8"
+                    android:textSize="18dp"
+                    android:text="내용을 입력해주세요 \n입력해주세요"/>
+
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.percent.PercentRelativeLayout>
+
+</android.support.percent.PercentRelativeLayout>

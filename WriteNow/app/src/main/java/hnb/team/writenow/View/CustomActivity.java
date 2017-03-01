@@ -1,6 +1,7 @@
 package hnb.team.writenow.View;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
@@ -57,10 +58,15 @@ import static android.view.View.VISIBLE;
 
 public class CustomActivity extends BaseActivity implements FileSaveListener{
 
+
+    private String customFolderPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom);
+
+        customFolderPath = getIntent().getStringExtra(FragmentMakeContents.INTENT_DATA_CUSTOM_FOLDER_PATH);
 
         initAdmobSetting();
 
@@ -92,8 +98,7 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
             @Override
             public void onAdClosed() { //전면 광고가 열린 뒤에 닫혔을 때
                 if(fileSaveState)
-                    showFinishedDialog();
-                Log.i("ADBOM", "finish and save");
+                    showAnotherCustomDialog();
             }
         });
     }
@@ -432,7 +437,8 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
 
         customContentsLayout.buildDrawingCache();
 
-        AsyncSaveToImage.startSaveToImage(customContentsLayout.getDrawingCache(), this, this);
+        //AsyncSaveToImage.startSaveToImage(customContentsLayout.getDrawingCache(), this, this);
+        AsyncSaveToImage.startSaveToImage(customContentsLayout.getDrawingCache(), customFolderPath, this, this);
 
     }
 
@@ -458,7 +464,6 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
 
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
-
 
     boolean fileSaveState = false;
 
@@ -545,5 +550,32 @@ public class CustomActivity extends BaseActivity implements FileSaveListener{
         alertDialog.show();
     }
 
+    private void showAnotherCustomDialog(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
+
+        builder.setMessage(getResources().getString(R.string.str_custom_success));
+
+        builder.setPositiveButton(getResources().getString(R.string.str_custom_success_add_card), (dialog, which) -> {
+            dialog.cancel();
+            setResult(RESULT_OK, getFinishIntent());
+            finish();
+        });
+
+        builder.setNegativeButton(getResources().getString(R.string.str_custom_success_complete), (dialog, which) -> {
+            dialog.cancel();
+            finish();
+        });
+
+        AlertDialog alertDialog = builder.create();
+
+        alertDialog.show();
+    }
+
+    private Intent getFinishIntent(){
+        Intent intent = new Intent();
+        intent.putExtra(FragmentMakeContents.INTENT_DATA_CUSTOM_FOLDER_PATH, customFolderPath);
+        return intent;
+    }
 
 }

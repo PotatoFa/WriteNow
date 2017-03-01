@@ -22,13 +22,21 @@ public class AsyncSaveToImage extends AsyncTask<Bitmap, Integer, String>{
 
     private FileSaveListener fileSaveListener;
 
-    private AsyncSaveToImage(Context context, FileSaveListener fileSaveListener){
+    private String saveFolderPath;
+
+    private AsyncSaveToImage(Context context, FileSaveListener fileSaveListener, String saveFolderPath){
         this.context = context;
         this.fileSaveListener = fileSaveListener;
+        this.saveFolderPath = saveFolderPath;
     }
 
     public static void startSaveToImage(Bitmap bitmap, Context context, FileSaveListener fileSaveListener){
-        AsyncSaveToImage asyncSaveToImage = new AsyncSaveToImage(context, fileSaveListener);
+        AsyncSaveToImage asyncSaveToImage = new AsyncSaveToImage(context, fileSaveListener, "");
+        asyncSaveToImage.execute(bitmap);
+    }
+
+    public static void startSaveToImage(Bitmap bitmap, String saveFolderPath, Context context, FileSaveListener fileSaveListener){
+        AsyncSaveToImage asyncSaveToImage = new AsyncSaveToImage(context, fileSaveListener, saveFolderPath);
         asyncSaveToImage.execute(bitmap);
     }
 
@@ -36,7 +44,7 @@ public class AsyncSaveToImage extends AsyncTask<Bitmap, Integer, String>{
     protected String doInBackground(Bitmap... params) {
         Log.i("IMAGE SAVE ASYNC", "ASYNC START");
 
-        excuteSaveCard(params[0]);
+        excuteSaveCard2(params[0]);
         return null;
     }
 
@@ -63,7 +71,7 @@ public class AsyncSaveToImage extends AsyncTask<Bitmap, Integer, String>{
     }
 
 
-    public void excuteSaveCard(Bitmap saveBitmap) {
+    public void excuteSaveCbard(Bitmap saveBitmap) {
         boolean result = true;
 
         String hnbFolderPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/hnb";
@@ -109,6 +117,47 @@ public class AsyncSaveToImage extends AsyncTask<Bitmap, Integer, String>{
         //saveBitmap.recycle();
     }
 
+
+    public void excuteSaveCard2(Bitmap saveBitmap) {
+        boolean result = true;
+
+        String hnbFolderPath = saveFolderPath;
+
+        String saveImagePath = hnbFolderPath;
+
+        File hnbFolder = new File(hnbFolderPath);
+
+        if (!hnbFolder.exists())
+            result = hnbFolder.mkdir();
+
+        if (!result) {
+            onCancelled("failed folder create");
+            return;
+        }
+
+        int fileCounts = hnbFolder.listFiles().length;
+
+        saveImagePath += "/cardImage" + (fileCounts + 1) + ".jpg";
+
+        FileOutputStream out = null;
+
+        try {
+            out = new FileOutputStream(saveImagePath);
+            saveBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        } catch (FileNotFoundException nfe) {
+            Log.d("FileNotFoundException:", nfe.getMessage());
+            onCancelled("File NOTFOUND");
+        } finally {
+            try {
+                if (out != null) out.close();
+                onPostExecute(saveImagePath);
+                context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + saveImagePath)));
+
+            } catch (IOException ioe) {
+                onCancelled("COMPLETE FAIL");
+            }
+        }
+    }
 
 
 

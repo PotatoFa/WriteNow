@@ -16,6 +16,13 @@ public class Contents {
         this.titleImage = titleImage;
     }
 
+
+    public Contents(int contentsId, int titleImage, String filePath) {
+        this.contentsId = contentsId;
+        this.titleImage = titleImage;
+        this.filePath = filePath;
+    }
+
     public String getFilePath() {
         return filePath;
     }

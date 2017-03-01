@@ -3,6 +3,7 @@ package hnb.team.writenow.Adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -83,6 +84,11 @@ public class AdapterMakeContents extends RecyclerView.Adapter<AdapterMakeContent
             holder.imageView.setScaleType(ImageView.ScaleType.CENTER);
             return;
         }
+
+        if(contents.getFilePath() != null)
+            Glide.with(context).load(Uri.parse("file://"+contents.getFilePath()))
+                    .override(160,160).into(holder.imageView);
+
 
 /*
         File image = new File(contents.getFilePath());

@@ -1,6 +1,7 @@
 package hnb.team.writenow.View;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ import hnb.team.writenow.Presenter.MakeContentsPresenter;
 import hnb.team.writenow.Presenter.MakeContentsPresenterImpl;
 import hnb.team.writenow.R;
 
+import hnb.team.writenow.Util.DirectoryHelper;
 import hnb.team.writenow.Util.ValueHelper;
 
 /**
@@ -43,6 +45,8 @@ public class FragmentMakeContents extends BaseFragment implements MakeContentsPr
 
     MakeContentsPresenterImpl makeContentsPresenter;
 
+    private String customFolderPath = DirectoryHelper.getCustomFolderPath();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +60,7 @@ public class FragmentMakeContents extends BaseFragment implements MakeContentsPr
 
         makeContentsPresenter = new MakeContentsPresenterImpl(this, this);
 
-        makeContentsPresenter.excuteMakeContentsList();
+        makeContentsPresenter.excuteMakeContentsList(customFolderPath);
 
         return rootView;
     }
@@ -89,16 +93,30 @@ public class FragmentMakeContents extends BaseFragment implements MakeContentsPr
 
     public static final int REQUEST_MAKE_CONTENTS = 1;
 
+    public static final String INTENT_DATA_CUSTOM_FOLDER_PATH = "CustomFolderPath";
+
     @Override
     public void onClickView(int position, Object data) {
         Contents contents = (Contents) data;
         if(contents.getContentsId() == AdapterMakeContents.ADD_BUTTON_ID){
-//            Intent intent = new Intent(getActivity(), WriteActivity.class);
             Intent intent = new Intent(getActivity(), CustomActivity.class);
+            intent.putExtra(INTENT_DATA_CUSTOM_FOLDER_PATH, customFolderPath);
             getActivity().startActivityForResult(intent, REQUEST_MAKE_CONTENTS);
         }else{
             changePreViewImage(contents);
         }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        makeContentsPresenter.excuteMakeContentsList(customFolderPath);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -120,7 +138,9 @@ public class FragmentMakeContents extends BaseFragment implements MakeContentsPr
 
     @Override
     public void changePreViewImage(Contents contents) {
-        Glide.with(this).load(contents.getTitleImage()).into(previewImage);
+        Glide.with(this)
+                .load(contents.getFilePath() != null ? Uri.parse("file://"+contents.getFilePath()) : contents.getTitleImage())
+                .into(previewImage);
     }
 
 }
